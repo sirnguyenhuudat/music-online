@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -36,4 +36,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tracks()
+    {
+        return $this->hasMany('App\Models\Track');
+    }
+
+    public function playlists()
+    {
+        return $this->hasMany('App\Models\Playlist');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Roles', 'role_users', 'user_id', 'role_id')->withTimestamps();
+    }
 }
