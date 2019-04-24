@@ -21,4 +21,5 @@ Route::group([
     'namespace' => 'Backend',
 ], function () {
     Route::resource('genres', 'GenreController');
+    Route::resource('artists', 'ArtistController');
 });
