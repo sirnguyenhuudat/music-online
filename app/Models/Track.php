@@ -8,6 +8,7 @@ class Track extends Model
 {
     protected $fillable = [
         'name',
+        'slug',
         'author',
         'artist_id',
         'user_id',
