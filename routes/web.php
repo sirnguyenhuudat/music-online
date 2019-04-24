@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group([
+    'prefix' => '/backend',
+    'as' => 'backend.',
+    'namespace' => 'Backend',
+], function () {
+    Route::resource('genres', 'GenreController');
+});
