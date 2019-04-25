@@ -18,13 +18,13 @@ class CreateAlbumsTable extends Migration
             $table->string('title', 150);
             $table->string('slug');
             $table->string('picture', 250)->nullable();
-            $table->date('relate_date');
+            $table->string('relate_date');
             $table->text('info')->nullable();
-            $table->unsignedInteger('genre_id');
-            $table->unsignedInteger('artist_id');
-            $table->unsignedInteger('week_view');
-            $table->unsignedInteger('month_view');
-            $table->unsignedInteger('views');
+            $table->unsignedInteger('genre_id')->nullable();
+            $table->unsignedInteger('artist_id')->nullable();
+            $table->unsignedInteger('week_view')->default(0);
+            $table->unsignedInteger('month_view')->default(0);
+            $table->unsignedInteger('views')->default(0);
             $table->timestamps();
         });
     }
