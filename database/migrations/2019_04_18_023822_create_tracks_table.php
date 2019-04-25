@@ -19,13 +19,13 @@ class CreateTracksTable extends Migration
             $table->string('slug', 150);
             $table->string('author', 150)->nullable();
             $table->unsignedInteger('artist_id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->nullable();
             $table->string('source', 50);
             $table->string('path');
             $table->text('lyric')->nullable();
-            $table->unsignedInteger('week_view');
-            $table->unsignedInteger('month_view');
-            $table->unsignedInteger('views');
+            $table->unsignedInteger('week_view')->default(0);
+            $table->unsignedInteger('month_view')->default(0);
+            $table->unsignedInteger('views')->default(0);
             $table->timestamps();
         });
     }

@@ -99,4 +99,9 @@ abstract class EloquentRepository
 
         return false;
     }
+
+    public function orderBy($name = 'name', $type = 'asc')
+    {
+        return $this->_model->orderBy($name, $type)->get();
+    }
 }

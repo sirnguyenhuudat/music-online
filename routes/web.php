@@ -22,4 +22,5 @@ Route::group([
 ], function () {
     Route::resource('genres', 'GenreController');
     Route::resource('artists', 'ArtistController');
+    Route::resource('tracks', 'TrackController');
 });

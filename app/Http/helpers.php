@@ -51,3 +51,32 @@ if (!function_exists('removeImageAndThumb')) {
         }
     }
 }
+
+if (!function_exists('convertURL')) {
+    function convertURL ($url) {
+        if (preg_match('/nhaccuatui\.com/', $url)) {
+            $file = file_get_contents($url);
+            $start = '<div class=\"row_share\">';
+            $end = '<\/div>';
+            preg_match_all("/$start.*<input.*value=\'<iframe.*src=\"(.*)\".*\/>.*$end/msU", $file, $match);
+            $url_in_srcipt =  $match[1][0];
+            $data_in_script = file_get_contents($url_in_srcipt);
+            preg_match_all('/player\.peConfig\.xmlURL.*=.*\"(.*)\"/msU', $data_in_script, $url_in_XML);
+            $data_XML = simplexml_load_file($url_in_XML[1][0]);
+
+            return $data_XML->track->location;
+        }
+        if (preg_match('/nhac\.vn/', $url)) {
+            $urlEmbed = $url . '?embed=1';
+            $dataPage = file_get_contents($urlEmbed);
+            $start = 'sources:\ \[\{\"file\":\"';
+            $end = '\",\"label\":\"128K\"\}';
+            preg_match_all("/$start(.*)$end/", $dataPage, $matches);
+            $urlNhac = $matches[1][0];
+
+            return $urlNhac;
+        }
+
+        return false;
+    }
+}
