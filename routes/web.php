@@ -24,4 +24,9 @@ Route::group([
     Route::resource('artists', 'ArtistController');
     Route::resource('tracks', 'TrackController');
     Route::resource('albums', 'AlbumController');
+    Route::resource('comments', 'CommentController')->only([
+        'index',
+        'update',
+        'destroy',
+    ]);
 });
