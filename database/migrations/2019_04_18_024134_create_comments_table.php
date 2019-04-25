@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->unsignedInteger('album_id')->nullable();
             $table->text('content');
             $table->unsignedInteger('user_id');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }
