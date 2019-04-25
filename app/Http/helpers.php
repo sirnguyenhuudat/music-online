@@ -28,3 +28,26 @@ if (!function_exists('createThumb')) {
         Intervention\Image\Facades\Image::make($dir . '/' . $fileName)->resize($width, $height)->save($dir . '/' . $thumbName);
     }
 }
+
+if (!function_exists('createImageAndThumb')) {
+    function createImageAndThumb (\Illuminate\Http\Request $request, $formName, $folder) {
+        $file = $request->file($formName);
+        $dir = 'uploads/' . $folder . '/';
+        $fileName = saveImage($dir, $file);
+        createThumb($dir, $fileName);
+        createThumb($dir, $fileName, 250, 250);
+        $path = $dir . '/' . $fileName;
+
+        return $path;
+    }
+}
+
+if (!function_exists('removeImageAndThumb')) {
+    function removeImageAndThumb($path) {
+        if (file_exists($path) != '') {
+            unlink($path);
+            unlink(getThumbName($path));
+            unlink(getThumbName($path, 250, 250));
+        }
+    }
+}
