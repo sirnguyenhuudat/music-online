@@ -22,4 +22,9 @@ class Genre extends Model
     {
         return $this->belongsToMany('App\Models\Track', 'genre_tracks', 'genre_id', 'track_id')->withTimestamps();
     }
+
+    public function albums()
+    {
+        return $this->hasMany('App\Models\Album');
+    }
 }

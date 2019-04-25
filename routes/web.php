@@ -23,4 +23,5 @@ Route::group([
     Route::resource('genres', 'GenreController');
     Route::resource('artists', 'ArtistController');
     Route::resource('tracks', 'TrackController');
+    Route::resource('albums', 'AlbumController');
 });

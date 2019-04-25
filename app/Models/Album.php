@@ -33,4 +33,9 @@ class Album extends Model
     {
         return $this->hasMany('App\Models\Comment');
     }
+
+    public function genre()
+    {
+        return $this->belongsTo('App\Models\Genre');
+    }
 }
