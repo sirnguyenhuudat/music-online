@@ -30,3 +30,11 @@ Route::group([
         'destroy',
     ]);
 });
+
+Route::group([
+    'prefix' => '/',
+    'as' => 'home.',
+    'namespace' => 'Home',
+], function () {
+    Route::get('home', 'HomeController@index');
+});
