@@ -92,4 +92,5 @@ return [
     'new_releases' => 'New Releases',
     // weekly top 15
     'weekly_top_15' => 'weekly top 15',
+    'nothing' => 'Nothing found.',
 ];

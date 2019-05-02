@@ -14,4 +14,9 @@ class AlbumEloquentRepository extends EloquentRepository
     {
         return Album::class;
     }
+
+    public function getFeaturedAlbums()
+    {
+        return $this->_model->orderBy('featured', 'desc')->limit(config('conf.album_getFeaturedAlbums_limit'))->get();
+    }
 }
