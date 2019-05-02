@@ -8,40 +8,58 @@
                     <i class="fa_icon form_close"></i>
                 </button>
                 <div class="modal-body">
-                    <div class="ms_register_img">
-                        <img src="{{ asset(config('bower.home_images') . '/register_img.png') }}" alt="" class="img-fluid"/>
-                    </div>
-                    <div class="ms_register_form">
-                        <h2>{{ trans('home_index.register_signup') }}</h2>
-                        <div class="form-group">
-                            <input type="text" placeholder="{{ trans('home_index.enter_your_name') }}" class="form-control">
-                            <span class="form_icon">
-                                <i class="fa_icon form-user" aria-hidden="true"></i>
-							</span>
+                    <form method="POST" action="{{ route('register') }}" id="resigter_form">
+                        @csrf
+                        <div class="ms_register_img">
+                            <img src="{{ asset(config('bower.home_images') . '/register_img.png') }}" alt="" class="img-fluid"/>
                         </div>
-                        <div class="form-group">
-                            <input type="text" placeholder="{{ trans('home_index.enter_your_email') }}" class="form-control">
-                            <span class="form_icon">
-                                <i class="fa_icon form-envelope" aria-hidden="true"></i>
-                            </span>
+                        <div class="ms_register_form">
+                            <h2>{{ trans('home_index.register_signup') }}</h2>
+                            <div class="form-group">
+                                <input id="name_register" type="text" placeholder="{{ trans('home_index.enter_your_name') }}" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <span class="form_icon">
+                                    <i class="fa_icon form-user" aria-hidden="true"></i>
+                                </span>
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <input id="email_register" type="email" placeholder="{{ trans('home_index.enter_your_email') }}" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <span class="form_icon">
+                                    <i class="fa_icon form-envelope" aria-hidden="true"></i>
+                                </span>
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <input id="password_register" type="password" placeholder="{{ trans('home_index.enter_password') }}" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <span class="form_icon">
+                                    <i class="fa_icon form-lock" aria-hidden="true"></i>
+                                </span>
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <input id="password_confrim" type="password" placeholder="{{ trans('home_index.confirm_password') }}" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <span class="form_icon">
+                                    <i class=" fa_icon form-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <a href="javascript:void(0)" class="ms_btn" onclick="event.preventDefault(); document.getElementById('resigter_form').submit()">{{ trans('home_index.register_now') }}</a>
+                            <p>
+                                {{ trans('home_index.already_account') }}<a href="#myModal1" data-toggle="modal" class="ms_modal hideCurrentModel">{{ trans('home_index.login_here') }}</a>
+                            </p>
                         </div>
-                        <div class="form-group">
-                            <input type="password" placeholder="{{ trans('home_index.enter_password') }}" class="form-control">
-                            <span class="form_icon">
-                                <i class="fa_icon form-lock" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" placeholder="{{ trans('home_index.confirm_password') }}" class="form-control">
-                            <span class="form_icon">
-                                <i class=" fa_icon form-lock" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                        <a href="#" class="ms_btn">{{ trans('home_index.register_now') }}</a>
-                        <p>
-                            {{ trans('home_index.already_account') }}<a href="#myModal1" data-toggle="modal" class="ms_modal hideCurrentModel">{{ trans('home_index.login_here') }}</a>
-                        </p>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -59,32 +77,52 @@
                         <img src="{{ asset(config('bower.home_images') . '/register_img.png') }}" alt="" class="img-fluid"/>
                     </div>
                     <div class="ms_register_form">
-                        <h2>{{ trans('home_index.login_signin') }}</h2>
-                        <div class="form-group">
-                            <input type="email" placeholder="{{ trans('home_index.enter_your_email') }}" class="form-control">
-                            <span class="form_icon">
-                                <i class="fa_icon form-envelope" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" placeholder="{{ trans('home_index.enter_password') }}" class="form-control">
-                            <span class="form_icon">
-                                <i class="fa_icon form-lock" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                        <div class="remember_checkbox">
-                            <label>{{ trans('home_index.keep_me_signed_in') }}
-                                <input type="checkbox">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <a href="profile.html" class="ms_btn" target="_blank">{{ trans('home_index.login_now') }}</a>
-                        <div class="popup_forgot">
-                            <a href="#">{{ trans('home_index.forgot_password') }}</a>
-                        </div>
-                        <p>
-                            {{ trans('home_index.dont_have_account') }}<a href="#myModal" data-toggle="modal" class="ms_modal1 hideCurrentModel">{{ trans('home_index.register_here') }}</a>
-                        </p>
+                        <form method="post" action="{{ route('login') }}" id="form_login">
+                            @csrf
+                            <h2>{{ trans('home_index.login_signin') }}</h2>
+                            <div class="form-group">
+                                <input id="email_login" type="email" class="au-input au-input--full form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ trans('home_index.enter_your_email') }}">
+                                <span class="form_icon">
+                                    <i class="fa_icon form-envelope" aria-hidden="true"></i>
+                                </span>
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <input id="password_login" type="password" class="au-input au-input--full form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="{{ trans('home_index.enter_password') }}">
+                                <span class="form_icon">
+                                    <i class="fa_icon form-lock" aria-hidden="true"></i>
+                                </span>
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="remember_checkbox">
+                                <label>{{ trans('home_index.keep_me_signed_in') }}
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <a href="javascript:void(0)" class="ms_btn" onclick="event.preventDefault(); document.getElementById('form_login').submit()">
+                                    {{ trans('home_index.login_now') }}
+                                </a>
+                                <div class="popup_forgot">
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ trans('home_index.forgot_password') }}
+                                    </a>
+                                </div>
+                            </div>
+                            <p>
+                                {{ trans('home_index.dont_have_account') }}<a href="#myModal" data-toggle="modal" class="ms_modal1 hideCurrentModel">{{ trans('home_index.register_here') }}</a>
+                            </p>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -147,3 +185,4 @@
         </div>
     </div>
 </div>
+
