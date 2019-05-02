@@ -15,6 +15,7 @@ return [
     'history' => 'History',
     'featured_playlist' => 'Featured Playlist',
     'create_playlist' => 'Create Playlist',
+    'uploaded' => 'Uploaded',
     // footer
     'footer_title_1' => 'miraculous music station',
     'footer_content_1' => 'Updating......',

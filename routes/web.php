@@ -51,7 +51,7 @@ Route::group([
     Route::get('album/{id}/{url}', 'AlbumController@detail')->name('album.detail')->where('id', '[0-9]+');
     // Genre
     Route::get('genres/{url}', 'GenreController@index')->name('genres');
-    Route::get('genres/{id}/{url}', 'GenreController@detail')->name('genre.detail')->where('id', '[0-9]+');
+//    Route::get('genres/{id}/{url}', 'GenreController@detail')->name('genre.detail')->where('id', '[0-9]+');
     // Member
     Route::get('profile/{id}/{url}', 'MemberController@profile')->name('member.profile')->where('id', '[0-9]+');
     Route::get('setting/{id}/{url}', 'MemberController@setting')->name('member.setting')->where('id', '[0-9]+');
