@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -49,9 +50,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name_reg' => ['required', 'string', 'max:255'],
+            'email_reg' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password_reg' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -63,10 +64,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        $user =  User::create([
+            'name' => $data['name_reg'],
+            'email' => $data['email_reg'],
+            'password' => Hash::make($data['password_reg']),
         ]);
+        $user->roles()->attach(Role::where('slug', 'member')->first());
+
+        return $user;
+    }
+
+    public function showRegistrationForm()
+    {
+        return redirect()->route('home');
     }
 }

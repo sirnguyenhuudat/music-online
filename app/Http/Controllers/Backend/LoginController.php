@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -38,17 +38,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function showLoginForm(Request $request)
+    public function showLoginForm()
     {
-        return redirect()->route('home');
-    }
-
-    public function logout(Request $request)
-    {
-        $this->guard()->logout();
-
-        $request->session()->invalidate();
-
-        return $this->loggedOut($request) ?: redirect('/home');
+        return view('backend.login');
     }
 }

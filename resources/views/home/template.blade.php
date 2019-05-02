@@ -32,6 +32,14 @@
     <!-- Favicon Link -->
     <link rel="shortcut icon" type="image/png" href="{{ asset(config('bower.home_images') . 'favicon.png') }}">
     @yield('style')
+    <style>
+        #form_login .form-group .invalid-feedback{
+            text-align: left;
+        }
+        #resigter_form .form-group .invalid-feedback{
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body>
@@ -66,6 +74,41 @@
 <script type="text/javascript" src="{{ asset(config('bower.home_js') . 'plugins/scroll/jquery.mCustomScrollbar.js') }}"></script>
 <script type="text/javascript" src="{{ asset(config('bower.home_js') . 'custom.js') }}"></script>
 @yield('script')
+@error('email')
+<script>
+    $(document).ready(function () {
+        $('#modalLogin').modal('show');
+    })
+</script>
+@enderror
+@error('password')
+<script>
+    $(document).ready(function () {
+        $('#modalLogin').modal('show');
+    })
+</script>
+@enderror
+@error('name_reg')
+<script>
+    $(document).ready(function () {
+        $('#modalRegister').modal('show');
+    })
+</script>
+@enderror
+@error('email_reg')
+<script>
+    $(document).ready(function () {
+        $('#modalRegister').modal('show');
+    })
+</script>
+@enderror
+@error('password_reg')
+<script>
+    $(document).ready(function () {
+        $('#modalRegister').modal('show');
+    })
+</script>
+@enderror
 </body>
 
 </html>

@@ -1,6 +1,7 @@
 <!-- Modal -->
 <div class="ms_register_popup">
-    <div id="myModal" class="modal  centered-modal" role="dialog">
+    <!-- Register Modal-->
+    <div id="modalRegister" class="modal centered-modal" role="dialog">
         <div class="modal-dialog register_dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -16,47 +17,47 @@
                         <div class="ms_register_form">
                             <h2>{{ trans('home_index.register_signup') }}</h2>
                             <div class="form-group">
-                                <input id="name_register" type="text" placeholder="{{ trans('home_index.enter_your_name') }}" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name_register" type="text" placeholder="{{ trans('home_index.enter_your_name') }}" class="form-control @error('name_reg') is-invalid @enderror" name="name_reg" value="{{ old('name_reg') }}" required autocomplete="name" autofocus>
                                 <span class="form_icon">
                                     <i class="fa_icon form-user" aria-hidden="true"></i>
                                 </span>
-                                @error('name')
+                                @error('name_reg')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input id="email_register" type="email" placeholder="{{ trans('home_index.enter_your_email') }}" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email_register" type="email" placeholder="{{ trans('home_index.enter_your_email') }}" class="form-control @error('email_reg') is-invalid @enderror" name="email_reg" value="{{ old('email_reg') }}" required autocomplete="email">
                                 <span class="form_icon">
                                     <i class="fa_icon form-envelope" aria-hidden="true"></i>
                                 </span>
-                                @error('email')
+                                @error('email_reg')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input id="password_register" type="password" placeholder="{{ trans('home_index.enter_password') }}" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password_register" type="password" placeholder="{{ trans('home_index.enter_password') }}" class="form-control @error('password_reg') is-invalid @enderror" name="password_reg" required autocomplete="new-password">
                                 <span class="form_icon">
                                     <i class="fa_icon form-lock" aria-hidden="true"></i>
                                 </span>
-                                @error('password')
+                                @error('password_reg')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input id="password_confrim" type="password" placeholder="{{ trans('home_index.confirm_password') }}" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password_confrim" type="password" placeholder="{{ trans('home_index.confirm_password') }}" class="form-control" name="password_reg_confirmation" required autocomplete="new-password">
                                 <span class="form_icon">
                                     <i class=" fa_icon form-lock" aria-hidden="true"></i>
                                 </span>
                             </div>
                             <a href="javascript:void(0)" class="ms_btn" onclick="event.preventDefault(); document.getElementById('resigter_form').submit()">{{ trans('home_index.register_now') }}</a>
                             <p>
-                                {{ trans('home_index.already_account') }}<a href="#myModal1" data-toggle="modal" class="ms_modal hideCurrentModel">{{ trans('home_index.login_here') }}</a>
+                                {{ trans('home_index.already_account') }}<a href="#modalLogin" data-toggle="modal" class="ms_modal hideCurrentModel">{{ trans('home_index.login_here') }}</a>
                             </p>
                         </div>
                     </form>
@@ -64,8 +65,8 @@
             </div>
         </div>
     </div>
-    <!-- Login Popup Start -->
-    <div id="myModal1" class="modal  centered-modal" role="dialog">
+    <!-- Login Modal-->
+    <div id="modalLogin" class="modal centered-modal" role="dialog">
         <div class="modal-dialog login_dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -120,7 +121,7 @@
                                 </div>
                             </div>
                             <p>
-                                {{ trans('home_index.dont_have_account') }}<a href="#myModal" data-toggle="modal" class="ms_modal1 hideCurrentModel">{{ trans('home_index.register_here') }}</a>
+                                {{ trans('home_index.dont_have_account') }}<a href="#modalRegister" data-toggle="modal" class="ms_modal1 hideCurrentModel">{{ trans('home_index.register_here') }}</a>
                             </p>
                         </form>
                     </div>
@@ -131,7 +132,7 @@
 </div>
 <!-- Language Selection Modal -->
 <div class="ms_lang_popup">
-    <div id="lang_modal" class="modal  centered-modal" role="dialog">
+    <div id="lang_modal" class="modal centered-modal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -167,7 +168,7 @@
 </div>
 <!-- Queue Clear Model -->
 <div class="ms_clear_modal">
-    <div id="clear_modal" class="modal  centered-modal" role="dialog">
+    <div id="clear_modal" class="modal centered-modal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
