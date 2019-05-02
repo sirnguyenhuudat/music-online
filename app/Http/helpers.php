@@ -62,9 +62,13 @@ if (!function_exists('convertURL')) {
             $url_in_srcipt =  $match[1][0];
             $data_in_script = file_get_contents($url_in_srcipt);
             preg_match_all('/player\.peConfig\.xmlURL.*=.*\"(.*)\"/msU', $data_in_script, $url_in_XML);
-            $data_XML = simplexml_load_file($url_in_XML[1][0]);
+            $data_XML = [
+                (string) simplexml_load_file($url_in_XML[1][0])->track->location,
+            ];
+            preg_match_all('/https(.*)\\n/', $data_XML[0], $arrURL);
+            $url = 'https' . $arrURL[1][0];
 
-            return $data_XML->track->location;
+            return $url;
         }
         if (preg_match('/nhac\.vn/', $url)) {
             $urlEmbed = $url . '?embed=1';

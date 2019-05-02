@@ -11,7 +11,7 @@
         <!-- Banner -->
         @include('home.homepage.banner')
         <!-- Recently Played Music -->
-        @include('home.homepage.recently')
+        {{--@include('home.homepage.recently')--}}
         <!-- Weekly Top 15 -->
         @include('home.homepage.weekly_top_15')
         <!-- Featured Artists Music -->

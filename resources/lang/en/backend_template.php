@@ -25,4 +25,5 @@ return [
     'account' => 'Account',
     'setting' => 'Setting',
     'logout' => 'Logout',
+    'home_page' => 'Home Page',
 ];

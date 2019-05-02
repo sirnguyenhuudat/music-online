@@ -15,4 +15,9 @@ class GenreEloquentRepository extends EloquentRepository
     {
         return Genre::class;
     }
+
+    public function getTopGenres()
+    {
+        return $this->_model->orderBy('order', 'desc')->limit(config('conf.genre_getTopGenres_limit'))->get();
+    }
 }

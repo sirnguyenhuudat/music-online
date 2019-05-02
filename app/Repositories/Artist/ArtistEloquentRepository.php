@@ -14,4 +14,9 @@ class ArtistEloquentRepository extends EloquentRepository
     {
         return Artist::class;
     }
+
+    public function getFeaturedArtists()
+    {
+        return $this->_model->orderBy('featured', 'desc')->limit(config('conf.artist_getFeaturedArtists_limit'))->get();
+    }
 }
