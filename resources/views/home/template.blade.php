@@ -50,7 +50,7 @@
     <!-- Footer Start -->
     @include('home.layouts.footer')
     <!-- Audio Player Section -->
-    @include('home.layouts.player')
+    {{--@include('home.layouts.player')--}}
 </div>
 <!-- Register Modal Start -->
 @include('home.layouts.modal')
@@ -60,7 +60,7 @@
 <script type="text/javascript" src="{{ asset(config('bower.home_js') . 'plugins/swiper/js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset(config('bower.home_js') . 'plugins/player/jplayer.playlist.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset(config('bower.home_js') . 'plugins/player/jquery.jplayer.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset(config('bower.home_js') . 'plugins/player/audio-player.js') }}"></script>
+{{--<script type="text/javascript" src="{{ asset(config('bower.home_js') . 'plugins/player/audio-player.js') }}"></script>--}}
 <script type="text/javascript" src="{{ asset(config('bower.home_js') . 'plugins/player/volume.js') }}"></script>
 <script type="text/javascript" src="{{ asset(config('bower.home_js') . 'plugins/nice_select/jquery.nice-select.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset(config('bower.home_js') . 'plugins/scroll/jquery.mCustomScrollbar.js') }}"></script>
