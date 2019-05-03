@@ -13,9 +13,9 @@ class RoleController extends Controller
 {
     protected $_roleRepository;
 
-    public function __construct(RoleEloquentRepository $_roleRepository)
+    public function __construct(RoleEloquentRepository $roleRepository)
     {
-        $this->_roleRepository = $_roleRepository;
+        $this->_roleRepository = $roleRepository;
     }
     /**
      * Display a listing of the resource.

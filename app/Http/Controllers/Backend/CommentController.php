@@ -10,9 +10,9 @@ class CommentController extends Controller
 {
     protected $_commentRepository;
 
-    public function __construct(CommentEloquentRepository $_commentRepository)
+    public function __construct(CommentEloquentRepository $commentRepository)
     {
-        $this->_commentRepository = $_commentRepository;
+        $this->_commentRepository = $commentRepository;
     }
 
     /**
