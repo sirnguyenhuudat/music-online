@@ -21,6 +21,7 @@ return [
     'track_management' => 'Track Management',
     'album_management' => 'Album Management',
     'comment_management' => 'Comment Management',
+    'role_management' => 'Role Management',
     'statistical' => 'Statistical',
     'account' => 'Account',
     'setting' => 'Setting',
