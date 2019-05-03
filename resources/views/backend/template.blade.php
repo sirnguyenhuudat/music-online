@@ -8,6 +8,7 @@
     <meta name="description" content="theme template">
     <meta name="author" content="Nguyen Huu Dat">
     <meta name="keywords" content="theme template">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Title Page-->
     <title>
