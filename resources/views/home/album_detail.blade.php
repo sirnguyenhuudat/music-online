@@ -48,7 +48,7 @@
                         <ul>
                             @foreach (Auth::user()->playlists as $playlist)
                                 <li>
-                                    <a href="{{ route('playlist.add_track', ['playlist_id' => $playlist->id, 'track_id' => $trackOfWeek->id,]) }}" target="_blank"><span class="opt_icon"><span class="icon icon_playlst"></span></span>
+                                    <a href="#" target="_blank"><span class="opt_icon"><span class="icon icon_playlst"></span></span>
                                         {{ $playlist->title }}
                                     </a>
                                 </li>
@@ -93,7 +93,7 @@
                                         <ul>
                                             @foreach (Auth::user()->playlists as $playlist)
                                                 <li>
-                                                    <a href="{{ route('playlist.add_track', ['playlist_id' => $playlist->id, 'track_id' => $trackOfWeek->id,]) }}" target="_blank"><span class="opt_icon"><span class="icon icon_playlst"></span></span>
+                                                    <a href="{{ route('playlist.add_track', ['playlist_id' => $playlist->id, 'track_id' => $track->id,]) }}" target="_blank"><span class="opt_icon"><span class="icon icon_playlst"></span></span>
                                                         {{ $playlist->title }}
                                                     </a>
                                                 </li>

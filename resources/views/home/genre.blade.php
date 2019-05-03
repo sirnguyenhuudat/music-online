@@ -40,19 +40,6 @@
                                                         <span class="opt_icon"><span class="icon icon_queue"></span></span>{{ trans('home_index.add_to_queue') }}
                                                     </a>
                                                 </li>
-                                                @if (Auth::user() && count(Auth::user()->playlists) > 0)
-                                                    <li><a><span class="opt_icon"><span class="icon icon_playlst"></span></span>{{ trans('home_index.add_to_playlist') }}</a>
-                                                        <ul>
-                                                            @foreach (Auth::user()->playlists as $playlist)
-                                                                <li>
-                                                                    <a href="{{ route('playlist.add_track', ['playlist_id' => $playlist->id, 'track_id' => $trackOfWeek->id,]) }}" target="_blank"><span class="opt_icon"><span class="icon icon_playlst"></span></span>
-                                                                        {{ $playlist->title }}
-                                                                    </a>
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </li>
-                                                @endif
                                             </ul>
                                             <div class="ms_play_icon">
                                                 <img src="{{ asset(config('bower.home_images') . 'svg/play.svg') }}" alt="">

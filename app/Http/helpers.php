@@ -84,3 +84,16 @@ if (!function_exists('convertURL')) {
         return false;
     }
 }
+
+if (!function_exists('saveAudio')) {
+    function saveAudio($dir, $file) {
+        if (!file_exists($dir)) {
+            mkdir($dir, 0755, true);
+        }
+        $fileName = $file->getClientOriginalName() . '_' . md5(date('Y-m-d H:i:s')) . '.' . $file->getClientOriginalExtension();
+        $file->move($dir,$fileName);
+
+        return $fileName;
+    }
+}
+
