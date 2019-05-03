@@ -19,4 +19,6 @@ return [
     'music-online' => 'Music Online',
     'uploaded' => 'Track Uploaded',
     'upload_success' => 'Track ":name" upload successfully',
+    'choose_artist' => 'Please choose artist',
+    'author' => 'Author *',
 ];

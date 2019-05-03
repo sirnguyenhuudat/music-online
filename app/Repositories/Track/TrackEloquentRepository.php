@@ -24,4 +24,9 @@ class TrackEloquentRepository extends EloquentRepository
     {
         return $this->_model->orderBy('created_at', 'desc')->limit(config('conf.track_getReleaseTracks_limit'))->get();
     }
+
+    public  function getTracksUploadByMember($id)
+    {
+        return $this->_model->where('user_id', $id)->orderBy('id', 'desc')->paginate(config('conf.track_getTracksUploadByMember_paginate'));
+    }
 }

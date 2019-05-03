@@ -10,4 +10,5 @@ return [
     'album_getTrendingAlbums_limit' => '10',
     'album_getTop15Albums_limit' => '15',
     'album_getRelateAlbums_limit' => '10',
+    'track_getTracksUploadByMember_paginate' => '15',
 ];
