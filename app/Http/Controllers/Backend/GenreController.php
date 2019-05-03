@@ -13,9 +13,9 @@ class GenreController extends Controller
 {
     protected $_genreRepository;
 
-    public function __construct(GenreEloquentRepository $_genreRepository)
+    public function __construct(GenreEloquentRepository $genreRepository)
     {
-        $this->_genreRepository = $_genreRepository;
+        $this->_genreRepository = $genreRepository;
     }
     /**
      * Display a listing of the resource.

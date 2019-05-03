@@ -13,10 +13,10 @@ class ArtistController extends Controller
 {
     protected $_artistRepository, $_genreRepository;
 
-    public function __construct (ArtistEloquentRepository $_artistRepository, GenreEloquentRepository $_genreRepository)
+    public function __construct (ArtistEloquentRepository $artistRepository, GenreEloquentRepository $genreRepository)
     {
-        $this->_artistRepository = $_artistRepository;
-        $this->_genreRepository = $_genreRepository;
+        $this->_artistRepository = $artistRepository;
+        $this->_genreRepository = $genreRepository;
     }
     /**
      * Display a listing of the resource.

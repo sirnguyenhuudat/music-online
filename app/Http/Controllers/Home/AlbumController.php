@@ -11,9 +11,9 @@ class AlbumController extends Controller
     //
     protected $_albumRepository;
 
-    public function __construct(AlbumEloquentRepository $_albumRepository)
+    public function __construct(AlbumEloquentRepository $albumRepository)
     {
-        $this->_albumRepository = $_albumRepository;
+        $this->_albumRepository = $albumRepository;
     }
 
     public function index($url)
