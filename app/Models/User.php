@@ -54,6 +54,47 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany('App\Models\Roles', 'role_users', 'user_id', 'role_id')->withTimestamps();
+        return $this->belongsToMany('App\Models\Role', 'role_users', 'user_id', 'role_id')->withTimestamps();
+    }
+
+    //    /**
+//     * @param string|array $roles
+//     */
+    public function authorizeRoles($roles)
+    {
+        if (is_array($roles)) {
+            return $this->hasAnyRole($roles) ||
+                abort(401, config('error.401'));
+        }
+        return $this->hasRole($roles) ||
+            abort(401, config('error.401'));
+    }
+
+//    /**
+//     * Check multiple roles
+//     * @param array $roles
+//     */
+    public function hasAnyRole($roles)
+    {
+        return null !== $this->roles()->whereIn('slug', $roles)->first();
+    }
+
+//    /**
+//     * Check one role
+//     * @param string $role
+//     */
+    public function hasRole($role)
+    {
+        return null !== $this->roles()->where('slug', $role)->first();
+    }
+
+//    /**
+//     * Check one role
+//     * @param string $role
+//     * use in view
+//     */
+    public function isAdmin()
+    {
+        return $this->hasRole('admin') || false;
     }
 }

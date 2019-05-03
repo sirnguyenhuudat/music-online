@@ -129,41 +129,52 @@
                     <div class="account-wrap">
                         <div class="account-item clearfix js-item-menu">
                             <div class="image">
-                                <img src="{{ asset(config('image.icon') . 'avatar-01.jpg') }}" alt="John Doe"/>
+                                @if (Auth::user()->avatar == '')
+                                    <img src="{{ asset(config('image.icon') . 'avatar-01.jpg') }}" alt=""/>
+                                @else
+                                    <img src="{{ asset(getThumbName(Auth::user()->avatar)) }}" alt=""/>
+                                @endif
                             </div>
                             <div class="content">
-                                <a class="js-acc-btn" href="#">john doe</a>
+                                <a class="js-acc-btn" href="#">{{ Auth::user()->name }}</a>
                             </div>
                             <div class="account-dropdown js-dropdown">
                                 <div class="info clearfix">
                                     <div class="image">
                                         <a href="#">
-                                            <img src="{{ asset(config('image.icon') . 'avatar-01.jpg') }}" alt="John Doe"/>
+                                            @if (Auth::user()->avatar == '')
+                                                <img src="{{ asset(config('image.icon') . 'avatar-01.jpg') }}" alt=""/>
+                                            @else
+                                                <img src="{{ asset(getThumbName(Auth::user()->avatar)) }}" alt=""/>
+                                            @endif
                                         </a>
                                     </div>
                                     <div class="content">
                                         <h5 class="name">
-                                            <a href="#">john doe</a>
+                                            <a href="#">{{ Auth::user()->name }}</a>
                                         </h5>
-                                        <span class="email">johndoe@example.com</span>
+                                        <span class="email">{{ Auth::user()->email }}</span>
                                     </div>
                                 </div>
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
-                                        <a href="#">
+                                        <a href="{{ route('member.profile', ['id' => Auth::user()->id, 'url' => str_slug(Auth::user()->name) . '.html',]) }}">
                                             <i class="zmdi zmdi-account"></i>{{ trans('backend_template.account') }}
                                         </a>
                                     </div>
                                     <div class="account-dropdown__item">
-                                        <a href="#">
+                                        <a href="{{ route('member.setting', ['id' => Auth::user()->id, 'url' => str_slug(Auth::user()->name) . '.html',]) }}">
                                             <i class="zmdi zmdi-settings"></i>{{ trans('backend_template.setting') }}
                                         </a>
                                     </div>
                                 </div>
                                 <div class="account-dropdown__footer">
-                                    <a href="#">
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <i class="zmdi zmdi-power"></i>{{ trans('backend_template.logout') }}
                                     </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                    </form>
                                 </div>
                             </div>
                         </div>
