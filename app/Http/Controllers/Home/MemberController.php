@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Http\Requests\UpdateMember;
 use App\Repositories\User\UserEloquentRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class MemberController extends Controller
 {
@@ -29,4 +31,41 @@ class MemberController extends Controller
         }
     }
 
+    public function setting($id)
+    {
+        $member = $this->_memberRepository->find($id);
+        if ($member && Auth::id() == $id){
+            $data['title_page'] = trans('home_member.setting');
+            $data['member'] = $member;
+
+            return view('home.setting', $data);
+        } else {
+            return redirect()->route('home');
+        }
+    }
+
+    public function update(UpdateMember $request, $id)
+    {
+        $member = $this->_memberRepository->find($id);
+        if ($member && Auth::id() == $member->id) {
+            $dataUpdate = [
+                'name' => $request->input('name'),
+            ];
+            if ($request->input('password') != '') {
+                $dataUpdate['password'] = bcrypt($request->input('password'));
+            }
+            if ($request->hasFile('avatar')) {
+                removeImageAndThumb($member->avatar);
+                $dataUpdate['avatar'] = createImageAndThumb($request, 'avatar', 'users');
+            }
+            $this->_memberRepository->update($id, $dataUpdate);
+
+            return redirect()->route('member.profile', [
+                'id' => $member->id,
+                'url' => Str::slug($member->name) . '.html',
+            ])->with('success', trans('home_member.updated'));
+        } else {
+            return redirect()->route('home');
+        }
+    }
 }
