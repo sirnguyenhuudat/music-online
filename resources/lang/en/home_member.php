@@ -9,7 +9,7 @@ return [
     'created_at' => 'Date of Participation',
     'updated_at' => 'Last Update',
     'playlist' => 'Playlist',
-    'track_upload' => 'Track Upload',
+    'track_uploaded' => 'Track Uploaded',
     'setting' => 'Setting',
     'edit_profile' => 'Edit Profile',
     'save' => 'Save',
