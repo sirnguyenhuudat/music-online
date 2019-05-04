@@ -1,10 +1,10 @@
         <div class="ms_header">
             <div class="ms_top_left">
                 <div class="ms_top_search">
-                    <input type="text" class="form-control" placeholder="{{ trans('home_index.search_music_here') }}">
-                    <span class="search_icon">
-                        <img src="{{ asset(config('bower.home_images') . '/svg/search.svg') }}" alt="">
-                    </span>
+                    <form method="post" id="form_search">
+                        @csrf
+                        <input type="text" class="form-control" id="search-input" placeholder="{{ trans('home_index.search_music_here') }}" autocomplete="off">
+                    </form>
                 </div>
                 <div class="ms_top_trend">
                     <span><a href="#"  class="ms_color">{{ trans('home_index.trending_title') }}</a></span> <span class="top_marquee"><a href="#">{{ trans('home_index.trending_content') }}</a></span>

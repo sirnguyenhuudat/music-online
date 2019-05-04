@@ -35,4 +35,8 @@ class AlbumEloquentRepository extends EloquentRepository
         return $this->_model->orderBy('relate_date', 'desc')->limit(config('conf.album_getRelateAlbums_limit'))->get();
     }
 
+    public function getAlbumsByTitle($albumTitle)
+    {
+        return $this->_model->where('title', 'like', '%' . $albumTitle . '%')->get();
+    }
 }

@@ -52,4 +52,29 @@ class HomeController extends Controller
 
         return view('home.index', $data);
     }
+
+    public function searchByTrack(Request $request)
+    {
+        $trackName = $request->input('value');
+        $tracks = $this->_trackRepository->getTracksByName($trackName);
+
+        return response()->json($tracks);
+    }
+
+    public function searchByAlbum(Request $request)
+    {
+
+        $albumTitle = $request->input('value');
+        $albums = $this->_albumRepository->getAlbumsByTitle($albumTitle);
+
+        return response()->json($albums);
+    }
+
+    public function searchByArtist(Request $request)
+    {
+        $artistName = $request->input('value');
+        $artists = $this->_artistRepository->getArtistsByName($artistName);
+
+        return response()->json($artists);
+    }
 }
