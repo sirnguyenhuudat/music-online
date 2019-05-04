@@ -29,4 +29,9 @@ class TrackEloquentRepository extends EloquentRepository
     {
         return $this->_model->where('user_id', $id)->orderBy('id', 'desc')->paginate(config('conf.track_getTracksUploadByMember_paginate'));
     }
+
+    public function getTracksByName($trackName)
+    {
+        return $this->_model->where('name', 'like', '%' . $trackName . '%')->get();
+    }
 }

@@ -7,7 +7,6 @@
 <!--<![endif]-->
 <!-- Begin Head -->
 
-<!-- Mirrored from kamleshyadav.com/html/miraculous/version1/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 21 Aug 2018 01:11:14 GMT -->
 <head>
     <title>
         @section('title_page')
@@ -29,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset(config('bower.home_js') . 'plugins/player/volume.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset(config('bower.home_js') . 'plugins/scroll/jquery.mCustomScrollbar.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset(config('bower.home_css') . 'style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset(config('bower.home_css') . 'my-style.css') }}">
     <!-- Favicon Link -->
     <link rel="shortcut icon" type="image/png" href="{{ asset(config('bower.home_images') . 'favicon.png') }}">
     @yield('style')
@@ -40,6 +40,9 @@
             text-align: left;
         }
     </style>
+    <script>
+        var baseUrl = '{{ url('/') }}';
+    </script>
 </head>
 
 <body>
@@ -73,6 +76,8 @@
 <script type="text/javascript" src="{{ asset(config('bower.home_js') . 'plugins/nice_select/jquery.nice-select.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset(config('bower.home_js') . 'plugins/scroll/jquery.mCustomScrollbar.js') }}"></script>
 <script type="text/javascript" src="{{ asset(config('bower.home_js') . 'custom.js') }}"></script>
+<script type="text/javascript" src="{{ asset(config('bower.home_js') . 'typeahead.bundle.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset(config('bower.home_js') . 'my-script.js') }}"></script>
 @yield('script')
 @error('email')
 <script>
