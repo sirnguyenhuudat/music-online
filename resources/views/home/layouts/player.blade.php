@@ -22,7 +22,6 @@
                                 <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_download"></i></span>{{ trans('home_index.download_now') }}</a></li>
                                 <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_fav"></i></span>{{ trans('home_index.add_to_favourites') }}</a></li>
                                 <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_playlist"></i></span>{{ trans('home_index.add_to_playlist') }}</a></li>
-                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_share"></i></span>{{ trans('home_index.share') }}</a></li>
                             </ul>
                         </div>
                         <span class="play-left-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>

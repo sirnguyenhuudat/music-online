@@ -41,7 +41,7 @@ class HomeController extends Controller
         $this->_artistRepository = new ArtistEloquentRepository();
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $data['title_page'] = trans('home_index.title');
         $data['weekly_top_15'] = $this->_trackRepository->getTracksWeekly();
@@ -49,6 +49,10 @@ class HomeController extends Controller
         $data['featured_albums'] = $this->_albumRepository->getFeaturedAlbums();
         $data['featured_artists'] = $this->_artistRepository->getFeaturedArtists();
         $data['release_tracks'] = $this->_trackRepository->getReleaseTracks();
+        if ($request->cookie('arrTrackId') != false) {
+            $arrTrackId = json_decode($request->cookie('arrTrackId'), true);
+            $data['tracks_recently'] = $this->_trackRepository->getTracksByArrId($arrTrackId);
+        }
 
         return view('home.index', $data);
     }

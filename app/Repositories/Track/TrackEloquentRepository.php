@@ -34,4 +34,9 @@ class TrackEloquentRepository extends EloquentRepository
     {
         return $this->_model->where('name', 'like', '%' . $trackName . '%')->get();
     }
+
+    public function getTracksByArrId(Array $arrTrackId)
+    {
+        return $this->_model->whereIn('id', $arrTrackId)->get();
+    }
 }

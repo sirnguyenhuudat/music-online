@@ -81,7 +81,7 @@ if (!function_exists('convertURL')) {
             return $urlNhac;
         }
 
-        return false;
+        return $url;
     }
 }
 

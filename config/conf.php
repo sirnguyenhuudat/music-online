@@ -11,4 +11,5 @@ return [
     'album_getTop15Albums_limit' => '15',
     'album_getRelateAlbums_limit' => '10',
     'track_getTracksUploadByMember_paginate' => '15',
+    'track_index_numberTrackRecently' => '10',
 ];
