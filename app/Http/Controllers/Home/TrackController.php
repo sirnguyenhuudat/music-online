@@ -30,6 +30,32 @@ class TrackController extends Controller
         $this->_artistRepository = new ArtistEloquentRepository();
     }
 
+    public function getQueueTracksByAjax(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            if ($request->cookie('arrTrackId') != false) {
+                $arrTrackId = json_decode($request->cookie('arrTrackId'), true);
+                array_unshift($arrTrackId, $id);
+            } else {
+                $arrTrackId = [$id];
+            }
+            $tracks = $this->_trackRepository->getTracksByArrId('id', $arrTrackId);
+            if ($tracks) {
+                $data = [];
+                foreach ($tracks as $track) {
+                    $data[] = [
+                        'name' => $track->name,
+                        'artist' => $track->artist->name,
+                        'path' => convertURL($track->path),
+                        'picture' => $track->artist->avatar == '' ? getThumbName(config('image.icon') . 'artist.png') : getThumbName($track->artist->avatar),
+                    ];
+                }
+
+                return response()->json($data)->cookie('arrTrackId', json_encode($arrTrackId));
+            }
+        }
+    }
+
     public function getTrackByAjax(Request $request, $id)
     {
         if ($request->ajax()) {
@@ -45,19 +71,31 @@ class TrackController extends Controller
                 } else {
                     $data['picture'] = getThumbName($track->artist->avatar);
                 }
-                return response()->json($data);
+
+                return response()->json($data)->cookie('trackCurrent', json_encode($data), time() + 3600);
             }
         }
     }
 
-    public function index($id)
+    public function index(Request $request, $id)
     {
         $track = $this->_trackRepository->find($id);
         if ($track) {
             $data['title_page'] = $track->name;
             $data['track'] = $track;
+            if ($request->cookie('arrTrackId') != false) {
+                $arrTrackId = json_decode($request->cookie('arrTrackId'), true);
+                if (!in_array($id, $arrTrackId)) {
+                    array_unshift($arrTrackId, $id);
+                    if (count($arrTrackId) > config('conf.track_index_numberTrackRecently')) {
+                        array_pop($arrTrackId);
+                    }
+                }
+            } else {
+                $arrTrackId = [$id];
+            }
 
-            return view('home.track', $data);
+            return response()->view('home.track', $data)->cookie('arrTrackId', json_encode($arrTrackId));
         } else {
             return redirect()->route('home');
         }

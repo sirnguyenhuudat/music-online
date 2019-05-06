@@ -42,6 +42,7 @@
     </style>
     <script>
         var baseUrl = '{{ url('/') }}';
+        var baseUrlImageBower = '{{ url('/') . '/' . config('bower.home_images') }}';
     </script>
 </head>
 

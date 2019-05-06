@@ -71,7 +71,7 @@
                 </ul>
                 @forelse($album->tracks as $key => $track)
                     <ul>
-                        <li><a href="#"><span class="play_no">{{ ++$key }}</span><span class="play_hover"></span></a></li>
+                        <li><a href="javascript:void(0)" class="weekly_play_icon" id="{{ $track->id }}"><span class="play_no">{{ ++$key }}</span><span class="play_hover"></span></a></li>
                         <li><a href="{{ route('track.index', ['id' => $track->id, 'url' => $track->slug . '.html',]) }}">{{ $track->name }}</a></li>
                         <li><a href="#">{{ $track->artist->name }}</a></li>
                         <li class="text-center"><a href="#">{{ $track->month_view }}</a></li>
@@ -177,10 +177,9 @@
         </div>
         <!--Main div close-->
     </div>
+    <!-- Audio Player Section -->
+    @include('home.layouts.player')
+    @include('home.layouts.extends');
 @endsection
 
-@section ('style')
-@endsection
 
-@section ('script')
-@endsection

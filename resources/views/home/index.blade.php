@@ -11,7 +11,9 @@
         <!-- Banner -->
         @include('home.homepage.banner')
         <!-- Recently Played Music -->
-        {{--@include('home.homepage.recently')--}}
+        @if (isset($tracks_recently))
+            @include('home.homepage.recently')
+        @endif
         <!-- Weekly Top 15 -->
         @include('home.homepage.weekly_top_15')
         <!-- Featured Artists Music -->
@@ -23,10 +25,7 @@
         <!-- Top Genres Section Start -->
         @include('home.homepage.genres')
     </div>
-@endsection
-
-@section ('style')
-@endsection
-
-@section ('script')
+    <!-- Audio Player Section -->
+    @include('home.layouts.player')
+    @include('home.layouts.extends');
 @endsection
