@@ -20,6 +20,7 @@ Route::group([
 ], function () {
     Route::resource('genres', 'GenreController');
     Route::resource('artists', 'ArtistController');
+    Route::get('track/trending/{id}', 'TrackController@setTrending');
     Route::resource('tracks', 'TrackController');
     Route::resource('albums', 'AlbumController');
     Route::resource('comments', 'CommentController')->only([
@@ -73,6 +74,8 @@ Route::group([
     Route::get('uploaded.html', 'TrackController@uploaded')->name('track.uploaded');
     // Comment
     Route::post('comment/{type}/{url}', 'CommentController@saveComment')->name('comment.save')->where(['type' => '[a-zA-Z0-9-_]+', 'url' => '[a-zA-Z0-9_-]+.html']);
+    // Trending
+    Route::get('trending.html', 'HomeController@listTrending')->name('trending');
 });
 
 Auth::routes();

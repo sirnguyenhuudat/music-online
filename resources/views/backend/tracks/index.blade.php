@@ -67,6 +67,7 @@
                                             @endforelse
                                         </td>
                                         <td>
+                                            <a href="javascript:void(0)" attr-id="{{ $track->id }}" class="btn {{ $track->trending ? 'btn-danger' : 'btn-info' }} add_trending"><i class="zmdi {{ $track->trending ? 'zmdi-trending-down' : 'zmdi-trending-up' }}"></i></a>
                                             <a href="{{ route('backend.tracks.edit', $track->id) }}" class="btn btn-primary"><i class="zmdi zmdi-edit"></i></a>
                                             <a href="{{ route('backend.tracks.destroy', $track->id) }}" class="btn btn-danger" onclick="event.preventDefault();
                                                     !window.confirm('{{ trans('backend_track.alert_script', ['name' => $track->name,]) }}') ? false : document.getElementById('delete_track_{{ $track->id }}').submit();">
@@ -107,6 +108,36 @@
 
 @section ('script')
     <script type="text/javascript" src="{{ asset(config('bower.js') . 'jquery.dataTables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset(config('bower.js') . 'backend_script.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#trackTable').DataTable();
+            $('.add_trending').on('click', function () {
+                var track_id = $(this).attr('attr-id');
+                $.ajax({
+                    'type' : 'get',
+                    'url' : '{{ url('backend/track/trending') }}/' + track_id,
+                    'async' : true,
+                    'success' : function (result) {
+                        var tmpThis = $('a[attr-id=' + track_id + ']');
+                        alert(result.success);
+                        var tag_i = tmpThis.children();
+                        if (result.trend) {
+                            tmpThis.removeClass('btn-info');
+                            tmpThis.addClass('btn-danger');
+                            tag_i.removeClass('zmdi-trending-up');
+                            tag_i.addClass('zmdi-trending-down');
+                            tmpThis.attr('trending', 0);
+                        } else {
+                            tmpThis.removeClass('btn-danger');
+                            tmpThis.addClass('btn-info');
+                            tag_i.removeClass('zmdi-trending-down');
+                            tag_i.addClass('zmdi-trending-up');
+                            tmpThis.attr('trending', 1);
+                        }
+                    }
+                })
+            })
+        })
+    </script>
 @endsection
 

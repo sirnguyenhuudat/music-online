@@ -81,4 +81,12 @@ class HomeController extends Controller
 
         return response()->json($artists);
     }
+
+    public function listTrending()
+    {
+        $data['title_page'] = trans('home_index.title_trending');
+        $data['trending'] = $this->_trackRepository->getFullTracksTrending();
+
+        return view('home.trending', $data);
+    }
 }
