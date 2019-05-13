@@ -12,4 +12,5 @@ return [
     'album_getRelateAlbums_limit' => '10',
     'track_getTracksUploadByMember_paginate' => '15',
     'track_index_numberTrackRecently' => '10',
+    'album_getAlbumTopInMonth_limit' => '1',
 ];

@@ -49,6 +49,7 @@ class HomeController extends Controller
         $data['featured_albums'] = $this->_albumRepository->getFeaturedAlbums();
         $data['featured_artists'] = $this->_artistRepository->getFeaturedArtists();
         $data['release_tracks'] = $this->_trackRepository->getReleaseTracks();
+        $data['album_top_month'] = $this->_albumRepository->getAlbumTopInMonth();
         if ($request->cookie('arrTrackId') != false) {
             $arrTrackId = json_decode($request->cookie('arrTrackId'), true);
             $data['tracks_recently'] = $this->_trackRepository->getTracksByArrId($arrTrackId);

@@ -18,18 +18,18 @@ Route::group([
     'as' => 'backend.',
     'namespace' => 'Backend',
 ], function () {
-    Route::resource('genres', 'GenreController');
-    Route::resource('artists', 'ArtistController');
-    Route::get('track/trending/{id}', 'TrackController@setTrending');
-    Route::resource('tracks', 'TrackController');
-    Route::resource('albums', 'AlbumController');
+    Route::resource('genres', 'GenreController')->middleware('auth');
+    Route::resource('artists', 'ArtistController')->middleware('auth');
+    Route::get('track/trending/{id}', 'TrackController@setTrending')->middleware('auth');
+    Route::resource('tracks', 'TrackController')->middleware('auth');
+    Route::resource('albums', 'AlbumController')->middleware('auth');
     Route::resource('comments', 'CommentController')->only([
         'index',
         'update',
         'destroy',
-    ]);
-    Route::resource('users', 'UserController');
-    Route::resource('roles', 'RoleController');
+    ])->middleware('auth');
+    Route::resource('users', 'UserController')->middleware('auth');
+    Route::resource('roles', 'RoleController')->middleware('auth');
     Route::get('/login', 'LoginController@showLoginForm');
 });
 

@@ -39,4 +39,9 @@ class AlbumEloquentRepository extends EloquentRepository
     {
         return $this->_model->where('title', 'like', '%' . $albumTitle . '%')->get();
     }
+
+    public function getAlbumTopInMonth()
+    {
+        return $this->_model->orderBy('month_view', 'desc')->limit(config('conf.album_getAlbumTopInMonth_limit'))->first();
+    }
 }
