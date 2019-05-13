@@ -21,4 +21,7 @@ return [
     'upload_success' => 'Track ":name" upload successfully',
     'choose_artist' => 'Please choose artist',
     'author' => 'Author *',
+    // Comment
+    'created_comment_in_track' => 'Your comment has been submitted and is awaiting check',
+    'created_comment_in_album' => 'Your comment has been submitted and is awaiting check',
 ];

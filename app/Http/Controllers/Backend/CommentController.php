@@ -23,7 +23,7 @@ class CommentController extends Controller
     public function index()
     {
         $data['title_page'] = trans('backend_comment.index_title');
-        $data['comments'] = $this->_commentRepository->orderBy('status');
+        $data['comments'] = $this->_commentRepository->getListCommentUnpublish();
 
         return view('backend.comments.index', $data);
     }

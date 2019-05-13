@@ -112,14 +112,14 @@
     <!-- Main Content Start-->
     <div class="ms_content_wrapper ms_album_content">
         <!-- Comments -->
-        @if(count($album->comments) > 0)
+        @if(count($album->comments->where('status', 1)) > 0)
             <div class="ms_test_wrapper">
                 <div class="ms_heading">
-                    <h1>{{ trans('home_album.comments') }} ({{ count($album->comments) }})</h1>
+                    <h1>{{ trans('home_album.comments') }} ({{ count($album->comments->where('status', 1)) }})</h1>
                 </div>
                 <div class="ms_test_slider swiper-container">
                     <div class="swiper-wrapper">
-                        @forelse($album->comments as $comm)
+                        @forelse($album->comments->where('status', 1) as $comm)
                             <div class="swiper-slide">
                                 <div class="ms_test_box">
                                     <div class="ms_test_top">
@@ -149,30 +149,44 @@
     @endif
     <!-- Comment Form section Start-->
         <div class="ms_cmnt_wrapper">
-            <div class="ms_heading">
-                <h1>{{ trans('home_album.leave_a_comment') }}</h1>
-            </div>
             <div class="ms_cmnt_form">
-                <form>
-                    <div class="ms_input_group">
-                        <div class="ms_input">
-                            <input type="text" class="form-control" placeholder="{{ trans('home_album.enter_your_name') }}">
-                        </div>
-                        <div class="ms_input marger_top20">
-                            <input type="text" class="form-control" placeholder="{{ trans('home_album.enter_your_email') }}">
-                        </div>
+                @if (Auth::user())
+                    <div class="blog_comments_forms">
+                        <h1>{{ trans('home_track.leave_a_comment') }}</h1>
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                            <br><br>
+                        @endif
+                        <form action="{{ route('comment.save', ['type' => 'album-' . $album->id, 'url' => $album->slug . '.html',]) }}" method="post">
+                            @csrf
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="comment_input_wrapper">
+                                        <input name="name" value="{{ Auth::user()->name }}" type="text" class="cmnt_field" placeholder="{{ trans('home_track.your_name') }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="comment_input_wrapper">
+                                        <input name="email" value="{{ Auth::user()->email }}" type="email" class="cmnt_field" placeholder="{{ trans('home_track.your_email') }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="comment_input_wrapper {{ $errors->has('comment') ? 'has-warning' : '' }}">
+                                        <textarea id="comment" name="comment" class="cmnt_field {{ $errors->has('comment') ? 'is-invalid' : '' }}" placeholder="{{ trans('home_track.your_comment') }}">{{ old('comment') }}</textarea>
+                                    </div>
+                                    <small class="form-text text-muted">{{ $errors->first('comment') }}</small>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="comment-form-submit">
+                                        <input name="submit" type="submit" id="comment-submit" class="submit ms_btn" value="{{ trans('home_track.post_comment') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="ms_input_group1">
-                        <div class="ms_input">
-                            <textarea name="message" class="form-control" placeholder="{{ trans('home_album.enter_your_comment') }}"></textarea>
-                        </div>
-                    </div>
-                    <div class="ms_input_group2">
-                        <div class="ms_input">
-                            <button class="ms_btn">{{ trans('home_album.post_your_comment') }}</button>
-                        </div>
-                    </div>
-                </form>
+                @endif
             </div>
         </div>
         <!--Main div close-->
@@ -182,4 +196,10 @@
     @include('home.layouts.extends');
 @endsection
 
-
+@section ('style')
+    <style>
+        small.form-text {
+            color: red !important;
+        }
+    </style>
+@endsection
