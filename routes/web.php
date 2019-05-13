@@ -71,6 +71,8 @@ Route::group([
     Route::get('upload.html', 'TrackController@upload')->name('track.upload');
     Route::post('upload.html', 'TrackController@uploadTrack')->name('track.upload_track');
     Route::get('uploaded.html', 'TrackController@uploaded')->name('track.uploaded');
+    // Comment
+    Route::post('comment/{type}/{url}', 'CommentController@saveComment')->name('comment.save')->where(['type' => '[a-zA-Z0-9-_]+', 'url' => '[a-zA-Z0-9_-]+.html']);
 });
 
 Auth::routes();

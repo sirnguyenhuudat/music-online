@@ -14,4 +14,9 @@ class CommentEloquentRepository extends EloquentRepository
     {
         return Comment::class;
     }
+
+    public function getListCommentUnpublish()
+    {
+        return $this->_model->where('status', 0)->orderBy('id', 'desc')->get();
+    }
 }

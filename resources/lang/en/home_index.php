@@ -12,6 +12,7 @@ return [
     'downloads' => 'Downloads',
     'purchased' => 'Purchased',
     'favourites' => 'Favourites',
+    'uploaded' => 'Uploaded',
     'history' => 'History',
     'featured_playlist' => 'Featured Playlist',
     'create_playlist' => 'Create Playlist',

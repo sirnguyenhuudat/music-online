@@ -33,25 +33,33 @@
                             </p>
                         </div>
                         <!--Blog Comment Form-->
+                        @if (Auth::user())
                         <div class="blog_comments_forms">
                             <h1>{{ trans('home_track.leave_a_comment') }}</h1>
-                            <form>
+                            @if (session('success'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('success') }}
+                                </div>
+                                <br><br>
+                            @endif
+                            <form action="{{ route('comment.save', ['type' => 'track-' . $track->id, 'url' => $track->slug . '.html',]) }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="comment_input_wrapper">
-                                            <input name="name" value="" type="text" class="cmnt_field" placeholder="{{ trans('home_track.your_name') }}">
+                                            <input name="name" value="{{ Auth::user()->name }}" type="text" class="cmnt_field" placeholder="{{ trans('home_track.your_name') }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="comment_input_wrapper">
-                                            <input name="email" value="" type="email" class="cmnt_field" placeholder="{{ trans('home_track.your_email') }}">
+                                            <input name="email" value="{{ Auth::user()->email }}" type="email" class="cmnt_field" placeholder="{{ trans('home_track.your_email') }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
-                                        <div class="comment_input_wrapper">
-                                            <textarea id="comment" name="comment" class="cmnt_field" placeholder="{{ trans('home_track.your_comment') }}"></textarea>
+                                        <div class="comment_input_wrapper {{ $errors->has('comment') ? 'has-warning' : '' }}">
+                                            <textarea id="comment" name="comment" class="cmnt_field {{ $errors->has('comment') ? 'is-invalid' : '' }}" placeholder="{{ trans('home_track.your_comment') }}">{{ old('comment') }}</textarea>
                                         </div>
+                                        <small class="form-text text-muted">{{ $errors->first('comment') }}</small>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
                                         <div class="comment-form-submit">
@@ -61,6 +69,7 @@
                                 </div>
                             </form>
                         </div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
@@ -85,7 +94,7 @@
                                                 <div class="comment_head">
                                                     <h3>{{ $comm->user->name }}</h3>
                                                     <p>{{ $comm->created_at->diffForHumans() }}</p>
-                                                    <p>{{ $comm->content }}</p>
+                                                    <div>{{ $comm->content }}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -103,8 +112,11 @@
 
 @section ('style')
     <style>
-        .jp_queue_wrapper{
+        .jp_queue_wrapper {
             display: none;
+        }
+        small.form-text {
+            color: red !important;
         }
     </style>
 @endsection
