@@ -2,6 +2,7 @@
 
 return [
     'title' => 'Music Online',
+    'title_trending' => 'Trending Songs',
     // sidemenu
     'discover' => 'Discover',
     'albums' => 'Albums',
@@ -70,7 +71,7 @@ return [
     // header
     'search_music_here' => 'Search Music Here..',
     'trending_title' => 'Trending Songs :',
-    'trending_content' => 'Dream your moments, Until I Met You, Gimme Some Courage, Dark Alley (+8 More)',
+    'trending_more' => 'More',
     'register' => 'register',
     'login' => 'login',
     'langs' => 'languages',

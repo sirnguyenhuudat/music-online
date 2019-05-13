@@ -27,6 +27,7 @@ return [
     'empty_album' => 'Updating ...',
     'empty_genre' => 'Updating ...',
     'empty_artist' => 'Updating ...',
+    'trend_success' => 'The trend of the song ":track_name" is updated',
     // create
     'label' => 'track manager',
     'label_form' => '<strong>Track</strong> Form Create',

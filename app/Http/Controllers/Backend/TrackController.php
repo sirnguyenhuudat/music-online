@@ -33,7 +33,7 @@ class TrackController extends Controller
     public function index()
     {
         $data['title_page'] = trans('backend_track.index_title');
-        $data['tracks'] = $this->_trackRepository->getAll();
+        $data['tracks'] = $this->_trackRepository->listTrack();
 
         return view('backend.tracks.index', $data);
     }
@@ -177,5 +177,22 @@ class TrackController extends Controller
     public function setTrackRepository(TrackEloquentRepository $_trackRepository)
     {
         $this->_trackRepository = $_trackRepository;
+    }
+
+    public function setTrending(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $track = $this->_trackRepository->find($id);
+            if ($track) {
+                $track->trending = !$track->trending;
+                $track->save();
+
+                return response()->json([
+                    'success' => trans('backend_track.trend_success', ['track_name' => $track->name,]),
+                    'trend' => $track->trending,
+                ]);
+            }
+
+        }
     }
 }
