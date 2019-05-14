@@ -19,9 +19,11 @@ Route::group([
     'namespace' => 'Backend',
 ], function () {
     Route::resource('genres', 'GenreController')->middleware('auth');
+    Route::get('artist/featured/{id}', 'ArtistController@setFeatured')->middleware('auth');
     Route::resource('artists', 'ArtistController')->middleware('auth');
     Route::get('track/trending/{id}', 'TrackController@setTrending')->middleware('auth');
     Route::resource('tracks', 'TrackController')->middleware('auth');
+    Route::get('album/featured/{id}', 'AlbumController@setFeatured')->middleware('auth');
     Route::resource('albums', 'AlbumController')->middleware('auth');
     Route::resource('comments', 'CommentController')->only([
         'index',

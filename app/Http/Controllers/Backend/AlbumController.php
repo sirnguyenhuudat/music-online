@@ -36,7 +36,7 @@ class AlbumController extends Controller
     public function index()
     {
         $data['title_page'] = trans('backend_album.index_title');
-        $data['albums'] = $this->_albumRepository->getAll();
+        $data['albums'] = $this->_albumRepository->listAlbum();
 
         return view('backend.albums.index', $data);
     }
@@ -174,6 +174,22 @@ class AlbumController extends Controller
             ]));
         } else {
             return redirect()->route('backend.albums.index')->with('error', trans('backend_album.error'));
+        }
+    }
+
+    public function setFeatured(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $album = $this->_albumRepository->find($id);
+            if ($album) {
+                $album->featured = !$album->featured;
+                $album->save();
+
+                return response()->json([
+                    'success' => trans('backend_album.featured_success', ['album_title' => $album->title,]),
+                    'featured' => $album->featured,
+                ]);
+            }
         }
     }
 

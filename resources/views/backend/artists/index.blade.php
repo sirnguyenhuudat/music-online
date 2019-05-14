@@ -63,6 +63,7 @@
                                             </td>
                                         @endif
                                         <td>
+                                            <a href="javascript:void(0)" attr-id="{{ $artist->id }}" class="btn {{ $artist->featured ? 'btn-danger' : 'btn-info' }} add_featured"><i class="zmdi {{ $artist->featured ? 'zmdi-eye-off' : 'zmdi-eye' }}"></i></a>
                                             <a href="{{ route('backend.artists.edit', $artist->id) }}" class="btn btn-primary"><i class="zmdi zmdi-edit"></i></a>
                                             <a href="{{ route('backend.artists.destroy', $artist->id) }}" class="btn btn-danger" onclick="event.preventDefault();
                                                     !window.confirm('{{ trans('backend_artist.alert_script', ['name' => $artist->name,]) }}') ? false : document.getElementById('delete_artist_{{ $artist->id }}').submit();">
@@ -147,6 +148,34 @@
 
 @section ('script')
     <script type="text/javascript" src="{{ asset(config('bower.js') . 'jquery.dataTables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset(config('bower.js') . 'backend_script.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#artistTable').DataTable();
+            $('.add_featured').on('click', function () {
+                var artist_id = $(this).attr('attr-id');
+                $.ajax({
+                    'type' : 'get',
+                    'url' : '{{ url('backend/artist/featured') }}/' + artist_id,
+                    'async' : true,
+                    'success' : function (result) {
+                        var tmpThis = $('a[attr-id=' + artist_id + ']');
+                        alert(result.success);
+                        var tag_i = tmpThis.children();
+                        if (result.featured) {
+                            tmpThis.removeClass('btn-info');
+                            tmpThis.addClass('btn-danger');
+                            tag_i.removeClass('zmdi-eye');
+                            tag_i.addClass('zmdi-eye-off');
+                        } else {
+                            tmpThis.removeClass('btn-danger');
+                            tmpThis.addClass('btn-info');
+                            tag_i.removeClass('zmdi-eye-off');
+                            tag_i.addClass('zmdi-eye');
+                        }
+                    }
+                })
+            })
+        })
+    </script>
 @endsection
 

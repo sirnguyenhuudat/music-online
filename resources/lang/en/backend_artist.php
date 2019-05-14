@@ -23,6 +23,7 @@ return [
     'label_album_released' => 'Albums Released',
     'empty_album' => 'Updating ...',
     'empty_genre' => 'Updating ...',
+    'featured_success' => '":artist_name" artist\'s featured have been updated',
     // create
     'label' => 'artist manager',
     'label_form' => '<strong>Artist</strong> Form Create',
