@@ -68,6 +68,7 @@ Route::group([
         'playlist_id' => '[0-9]+',
         'track_id' => '[0-9]+',
     ]);
+    Route::post('playlist/add_album_to_playlist.html', 'PlaylistController@addAllbumToPlaylist')->name('playlist.add_album');
     // Upload
     Route::get('upload.html', 'TrackController@upload')->name('track.upload');
     Route::post('upload.html', 'TrackController@uploadTrack')->name('track.upload_track');

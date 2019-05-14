@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Requests\StorePlaylist;
+use App\Repositories\Album\AlbumEloquentRepository;
 use App\Repositories\Playlist\PlaylistEloquentRepository;
 use App\Repositories\Track\TrackEloquentRepository;
 use Illuminate\Http\Request;
@@ -12,12 +13,28 @@ use Illuminate\Support\Str;
 
 class PlaylistController extends Controller
 {
-    protected $_playlistRepository, $_trackRepository;
+    protected $_playlistRepository, $_trackRepository, $_albumRepository;
 
-    public function __construct(PlaylistEloquentRepository $playlistRepository, TrackEloquentRepository $trackRepository)
+    public function __construct()
     {
-        $this->_playlistRepository = $playlistRepository;
-        $this->_trackRepository = $trackRepository;
+        $this->setTrackRepository();
+        $this->setAlbumRepository();
+        $this->setPlaylistRepository();
+    }
+
+    public function setPlaylistRepository()
+    {
+        $this->_playlistRepository = new PlaylistEloquentRepository;
+    }
+
+    public function setTrackRepository()
+    {
+        $this->_trackRepository = new TrackEloquentRepository;
+    }
+
+    public function setAlbumRepository()
+    {
+        $this->_albumRepository = new AlbumEloquentRepository;
     }
 
     public function getPlaylistByMember()
@@ -127,5 +144,32 @@ class PlaylistController extends Controller
         } else {
             return redirect()->route('home');
         }
+    }
+
+    public function addAllbumToPlaylist(Request $request)
+    {
+        $playlistId = $request->input('playlist_id');
+        $albumId = $request->input('album_id');
+        $playlist = $this->_playlistRepository->find($playlistId);
+        $album = $this->_albumRepository->find($albumId);
+        if ($album  && $playlist && Auth::user()) {
+            if (count($album->tracks) > 0 && count($album->tracks) < config('conf.playlistCtrl_addAlbumToPlaylist_limit_track_in_album')) {
+                $arrTrackIdInAlbum = [];
+                foreach ($playlist->tracks as $track) {
+                    $arrTrackIdInAlbum[] = $track->id;
+                }
+                foreach ($album->tracks as $track) {
+                    $arrTrackIdInAlbum[] = $track->id;
+                }
+                $playlist->tracks()->sync($arrTrackIdInAlbum);
+
+                return redirect()->route('playlist.show', [
+                    'id' => $playlist->id,
+                    'url' => $playlist->slug . '.html',
+                ]);
+            }
+        }
+
+        return redirect()->route('home');
     }
 }
