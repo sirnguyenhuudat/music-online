@@ -60,7 +60,7 @@
                     smoothPlayBar: true,
                     keyEnabled: true,
                     playlistOptions: {
-                        autoPlay: false
+                        autoPlay: true
                     }
                 });
                 $('#jquery_jplayer_1').on($.jPlayer.event.ready + ' ' + $.jPlayer.event.play, function(event) {

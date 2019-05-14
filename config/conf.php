@@ -15,4 +15,5 @@ return [
     'album_getAlbumTopInMonth_limit' => '1',
     'playlistCtrl_addAlbumToPlaylist_limit_track_in_album' => '50',
     'genre_getTracksByGenreId_paginate' => '15',
+    'artist_getSimilarArtists_limit' => '10',
 ];
