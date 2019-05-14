@@ -62,9 +62,14 @@
                                         <ul>
                                             @foreach (Auth::user()->playlists as $playlist)
                                                 <li>
-                                                    <a href="#" target="_blank"><span class="opt_icon"><span class="icon icon_playlst"></span></span>
+                                                    <a href="javascript:void(0)" onclick="document.getElementById('top15_{{ $album->id }}_{{ $playlist->id }}').submit()" target="_blank"><span class="opt_icon"><span class="icon icon_playlst"></span></span>
                                                         {{ $playlist->title }}
                                                     </a>
+                                                    <form action="{{ route('playlist.add_album') }}" method="post" id="top15_{{ $album->id }}_{{ $playlist->id }}">
+                                                        @csrf
+                                                        <input type="hidden" name="album_id" value="{{ $album->id }}">
+                                                        <input type="hidden" name="playlist_id" value="{{ $playlist->id }}">
+                                                    </form>
                                                 </li>
                                             @endforeach
                                         </ul>
