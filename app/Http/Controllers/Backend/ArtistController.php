@@ -8,6 +8,7 @@ use App\Repositories\Artist\ArtistEloquentRepository;
 use App\Repositories\Genre\GenreEloquentRepository;
 use App\Http\Requests\StoreArtist;
 use App\Http\Requests\UpdateArtist;
+use Illuminate\Http\Request;
 
 class ArtistController extends Controller
 {
@@ -26,7 +27,7 @@ class ArtistController extends Controller
     public function index()
     {
         $data['title_page'] = trans('backend_artist.index_title');
-        $data['artists'] = $this->_artistRepository->getAll();
+        $data['artists'] = $this->_artistRepository->listArtist();
 
         return view('backend.artists.index', $data);
     }
@@ -156,6 +157,23 @@ class ArtistController extends Controller
             ]));
         } else {
             return redirect()->route('backend.artists.index')->with('error', trans('backend_artist.error'));
+        }
+    }
+
+    public function setFeatured(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $artist = $this->_artistRepository->find($id);
+            if ($artist) {
+                $artist->featured = !$artist->featured;
+                $artist->save();
+
+                return response()->json([
+                    'success' => trans('backend_artist.featured_success', ['artist_name' => $artist->name,]),
+                    'featured' => $artist->featured,
+                ]);
+            }
+
         }
     }
 }

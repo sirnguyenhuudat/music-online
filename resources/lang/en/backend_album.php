@@ -28,6 +28,7 @@ return [
     'views' => 'Views',
     'tracks_of_album' => 'Tracks in album',
     'info' => 'Info',
+    'featured_success' => '":album_name" album\'s featured have been updated',
     // create
     'label' => 'album manager',
     'label_form' => '<strong>Album</strong> Form Create',

@@ -24,4 +24,9 @@ class ArtistEloquentRepository extends EloquentRepository
     {
         return $this->_model->where('title', 'like', '%' . $artistName . '%')->get();
     }
+
+    public function listArtist()
+    {
+        return $this->_model->orderBy('featured', 'desc')->orderBy('id', 'desc')->get();
+    }
 }
