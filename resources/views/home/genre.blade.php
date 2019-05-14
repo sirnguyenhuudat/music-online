@@ -11,7 +11,7 @@
         @forelse ($genres as $genre)
             <div class="ms_rcnt_slider marger_top60">
                 <div class="ms_heading">
-                    <h1>{{ $genre->name }}</h1>
+                    <h1><a href="{{ route('genre.detail', ['id' => $genre->id, 'url' => $genre->slug . '.html',]) }}">{{ $genre->name }}</a></h1>
                 </div>
                 <div class="swiper-container">
                     <div class="swiper-wrapper">

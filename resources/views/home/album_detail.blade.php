@@ -98,9 +98,12 @@
                                         <ul>
                                             @foreach (Auth::user()->playlists as $playlist)
                                                 <li>
-                                                    <a href="{{ route('playlist.add_track', ['playlist_id' => $playlist->id, 'track_id' => $track->id,]) }}" target="_blank"><span class="opt_icon"><span class="icon icon_playlst"></span></span>
+                                                    <a href="javascript:void(0)" onclick="document.getElementById('{{ $playlist->id }}_{{ $track->id }}').submit()"><span class="opt_icon"><span class="icon icon_playlst"></span></span>
                                                         {{ $playlist->title }}
                                                     </a>
+                                                    <form action="{{ route('playlist.add_track', ['playlist_id' => $playlist->id, 'track_id' => $track->id,]) }}" method="get" id="{{ $playlist->id }}_{{ $track->id }}">
+                                                        @csrf
+                                                    </form>
                                                 </li>
                                             @endforeach
                                         </ul>
