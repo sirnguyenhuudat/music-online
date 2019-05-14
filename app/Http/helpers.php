@@ -36,6 +36,7 @@ if (!function_exists('createImageAndThumb')) {
         $fileName = saveImage($dir, $file);
         createThumb($dir, $fileName);
         createThumb($dir, $fileName, 250, 250);
+        createThumb($dir, $fileName, 510, 530);
         $path = $dir . $fileName;
 
         return $path;

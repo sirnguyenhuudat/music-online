@@ -77,8 +77,7 @@ return [
     'langs' => 'languages',
     // banner
     'banner_title' => 'This Month’s',
-    'banner_slogan' => 'Record Breaking Albums !',
-    'banner_content' => 'Dream your moments, Until I Met You, Gimme Some Courage, Dark Alley, One More Of A Stranger, Endless<br> Things, The Heartbeat Stops, Walking Promises, Desired Games and many more...',
+    'banner_slogan' => 'Albums !',
     // featured albums
     'featured_album' => 'Featured Albums',
     'listen_now' => 'Listen Now',
