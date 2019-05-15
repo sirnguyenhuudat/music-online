@@ -3,6 +3,8 @@ namespace App\Repositories\Artist;
 
 use App\Repositories\EloquentRepository;
 use App\Models\Artist;
+use App\Exceptions\CreateArtistErrorException;
+use Illuminate\Database\QueryException;
 
 class ArtistEloquentRepository extends EloquentRepository
 {
@@ -38,5 +40,37 @@ class ArtistEloquentRepository extends EloquentRepository
     public function getSimilarArtists($id)
     {
         return $this->_model->where('id', '<', $id)->limit(config('conf.artist_getSimilarArtists_limit'))->get();
+    }
+
+    public function createArtist(array $data) : Artist
+    {
+        try {
+            return $this->_model->create($data);
+        } catch (QueryException $e) {
+            throw new CreateArtistErrorException($e);
+        }
+    }
+
+    public function findArtist(int $id) : Artist
+    {
+        try {
+            return $this->_model->findOrFail($id);
+        } catch (QueryException $e) {
+            throw new CreateArtistErrorException($e);
+        }
+    }
+
+    public function updateArtist($id, array $data) : Artist
+    {
+        try {
+            return $this->update($id, $data);
+        } catch (QueryException $e) {
+            throw new CreateArtistErrorException($e);
+        }
+    }
+
+    public function deleteArtist(int $id) : bool
+    {
+        return $this->delete($id);
     }
 }
