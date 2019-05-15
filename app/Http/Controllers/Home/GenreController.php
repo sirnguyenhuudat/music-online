@@ -22,4 +22,18 @@ class GenreController extends Controller
 
         return view('home.genre', $data);
     }
+
+    public function detail($id)
+    {
+        $genre = $this->_genreRepository->find($id);
+        if ($genre) {
+            $data['title_page']  = $genre->name;
+            $data['genre'] = $genre;
+            $data['tracks'] = $this->_genreRepository->getTracksByGenreId($genre->id);
+
+            return view('home.genre_detail', $data);
+        } else {
+            return redirect()->route('home');
+        }
+    }
 }

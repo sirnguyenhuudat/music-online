@@ -20,7 +20,7 @@
                                 <div class="ms_song_overlay">
                                 </div>
                                 <div class="ms_play_icon">
-                                    <img src="{{ asset(config('bower.home_images') . '/svg/play.svg') }}" alt="">
+                                    <img src="{{ asset(config('bower.home_images') . '/svg/play.svg') }}" class="weekly_play_icon" id="{{ $track->id }}" alt="">
                                 </div>
                             </div>
                             <div class="w_tp_song_name">
