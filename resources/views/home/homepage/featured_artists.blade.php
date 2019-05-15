@@ -16,7 +16,7 @@
                             @endif
                         </div>
                         <div class="ms_rcnt_box_text">
-                            <h3><a href="#">{{ $artist->name }}</a></h3>
+                            <h3><a href="{{ route('artist.show', ['id' => $artist->id, 'url' => $artist->slug . '.html',]) }}">{{ $artist->name }}</a></h3>
                         </div>
                     </div>
                 </div>
@@ -28,3 +28,4 @@
     <div class="swiper-button-next1 slider_nav_next"></div>
     <div class="swiper-button-prev1 slider_nav_prev"></div>
 </div>
+

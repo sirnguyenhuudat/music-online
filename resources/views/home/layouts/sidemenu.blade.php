@@ -38,6 +38,16 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('artist.index') }}" title="Artists">
+						<span class="nav_icon">
+							<span class="icon icon_artists"></span>
+						</span>
+                        <span class="nav_text">
+                            {{ trans('home_index.artists') }}
+						</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('genres', trans('home_genre.url-list-genres')) }}" title="Genres">
                         <span class="nav_icon">
                             <span class="icon icon_genres"></span>

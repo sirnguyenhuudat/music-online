@@ -79,6 +79,9 @@ Route::group([
     Route::post('comment/{type}/{url}', 'CommentController@saveComment')->name('comment.save')->where(['type' => '[a-zA-Z0-9-_]+', 'url' => '[a-zA-Z0-9_-]+.html']);
     // Trending
     Route::get('trending.html', 'HomeController@listTrending')->name('trending');
+    // Artist
+    Route::get('list-artist.html', 'ArtistController@index')->name('artist.index');
+    Route::get('artist/{id}/{url}', 'ArtistController@show')->name('artist.show')->where('id', '[0-9]+');
 });
 
 Auth::routes();

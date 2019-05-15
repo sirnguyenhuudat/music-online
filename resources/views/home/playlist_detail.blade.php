@@ -52,7 +52,7 @@
                 </ul>
                 @forelse($playlist->tracks as $key => $track)
                     <ul>
-                        <li><a href="#"><span class="play_no">{{ ++$key }}</span><span class="play_hover"></span></a></li>
+                        <li><a href="#" class="weekly_play_icon" id="{{ $track->id }}"><span class="play_no">{{ ++$key }}</span><span class="play_hover" ></span></a></li>
                         <li><a href="{{ route('track.index', ['id' => $track->id, 'url' => $track->slug . '.html',]) }}">{{ $track->name }}</a></li>
                         <li><a href="#">{{ $track->artist->name }}</a></li>
                         <li class="text-center"><a href="#">{{ $track->month_view }}</a></li>
@@ -62,13 +62,50 @@
                                 <li>
                                     <a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>{{ trans('home_index.add_to_favourites') }}</a>
                                 </li>
-                                <li>
-                                    <a href="javascript:void(0)" onclick="!window.confirm('{{ trans('home_playlist.alert_remove_track', ['track' => $track->name, 'playlist' => $playlist->name,]) }}') ? false : document.getElementById('remove_track_{{ $track->id }}').submit()"><span class="opt_icon"><span class="icon icon_playlst"></span></span>{{ trans('home_playlist.remove_track_to_playlist') }}</a>
-                                    <form action="{{ route('playlist.remove_track', ['playlist_id' => $playlist->id, 'track_id' => $track->id,]) }}" id="remove_track_{{ $track->id }}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                    </form>
-                                </li>
+                                @if(Auth::id() === $playlist->user_id)
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="!window.confirm('{{ trans('home_playlist.alert_remove_track', ['track' => $track->name, 'playlist' => $playlist->name,]) }}') ? false : document.getElementById('remove_track_{{ $track->id }}').submit()"><span class="opt_icon"><span class="icon icon_playlst"></span></span>{{ trans('home_playlist.remove_track_to_playlist') }}</a>
+                                        <form action="{{ route('playlist.remove_track', ['playlist_id' => $playlist->id, 'track_id' => $track->id,]) }}" id="remove_track_{{ $track->id }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                    </li>
+                                @endif
+                                @if (Auth::id() !== $playlist->user_id && Auth::user())
+                                    <li><a><span class="opt_icon"><span class="icon icon_playlst"></span></span>{{ trans('home_index.add_to_playlist') }}</a>
+                                        <ul>
+                                            @forelse(Auth::user()->playlists as $playlistGuest)
+                                                <li>
+                                                    <a href="javascript:void(0)" onclick="document.getElementById('{{ $playlistGuest->id }}_{{ $track->id }}').submit()"><span class="opt_icon"><span class="icon icon_playlst"></span></span>
+                                                        {{ $playlistGuest->title }}
+                                                    </a>
+                                                    <form action="{{ route('playlist.add_track', ['playlist_id' => $playlistGuest->id, 'track_id' => $track->id,]) }}" method="get" id="{{ $playlistGuest->id }}_{{ $track->id }}">
+                                                        @csrf
+                                                    </form>
+                                                </li>
+                                            @empty
+                                            @endforelse
+                                        </ul>
+                                    </li>
+                                @endif
+                                @if (Auth::id() === $playlist->user_id && Auth::user() && count(Auth::user()->playlists) > 1)
+                                    <li><a><span class="opt_icon"><span class="icon icon_playlst"></span></span>{{ trans('home_index.add_to_playlist') }}</a>
+                                        <ul>
+                                            @foreach(Auth::user()->playlists as $playlistOwner)
+                                                @if($playlistOwner->id != $playlist->id)
+                                                <li>
+                                                    <a href="javascript:void(0)" onclick="document.getElementById('owner_{{ $playlistOwner->id }}_{{ $track->id }}').submit()"><span class="opt_icon"><span class="icon icon_playlst"></span></span>
+                                                        {{ $playlistOwner->title }}
+                                                    </a>
+                                                    <form action="{{ route('playlist.add_track', ['playlist_id' => $playlistOwner->id, 'track_id' => $track->id,]) }}" method="get" id="owner_{{ $playlistOwner->id }}_{{ $track->id }}">
+                                                        @csrf
+                                                    </form>
+                                                </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endif
                             </ul>
                         </li>
                     </ul>
@@ -77,6 +114,9 @@
             </div>
         </div>
     </div>
+    <!-- Audio Player Section -->
+    @include('home.layouts.player')
+    @include('home.layouts.extends');
 @endsection
 
 @section ('style')
@@ -85,7 +125,4 @@
             background: red;
         }
     </style>
-@endsection
-
-@section ('script')
 @endsection

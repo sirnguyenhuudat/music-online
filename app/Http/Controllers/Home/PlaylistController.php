@@ -123,7 +123,7 @@ class PlaylistController extends Controller
     {
         $playlist = $this->_playlistRepository->find($playlist_id);
         $track = $this->_trackRepository->find($track_id);
-        if ($playlist && $track) {
+        if ($playlist && $track && Auth::id() == $playlist->user_id) {
             $dataTrackId = [];
             $arrTracks = $playlist->tracks;
             foreach ($arrTracks as $track){

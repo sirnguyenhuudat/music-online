@@ -39,7 +39,6 @@
                                 </div>
                             </div>
                             <div class="weekly_right">
-                                {{--<span class="w_song_time">{{ $weekly->length }}</span>--}}
                                 <span class="ms_more_icon" data-other="1">
                                     <img src="{{ asset(config('bower.home_images') . '/svg/more.svg') }}" alt="">
                                 </span>
