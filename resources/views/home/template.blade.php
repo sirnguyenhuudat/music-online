@@ -39,6 +39,10 @@
         #resigter_form .form-group .invalid-feedback{
             text-align: left;
         }
+        .login_with_social{
+            float: left;
+            color: white;
+        }
     </style>
     <script>
         var baseUrl = '{{ url('/') }}';

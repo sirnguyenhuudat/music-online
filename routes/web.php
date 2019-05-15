@@ -82,8 +82,10 @@ Route::group([
     // Artist
     Route::get('list-artist.html', 'ArtistController@index')->name('artist.index');
     Route::get('artist/{id}/{url}', 'ArtistController@show')->name('artist.show')->where('id', '[0-9]+');
+
+    Route::get('redirect/{social}', 'SocialAuthController@redirect')->name('social.redirect');
+    Route::get('callback/{social}', 'SocialAuthController@callback')->name('social.callback');
 });
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');

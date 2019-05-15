@@ -124,6 +124,9 @@
                                 {{ trans('home_index.dont_have_account') }}<a href="#modalRegister" data-toggle="modal" class="ms_modal1 hideCurrentModel">{{ trans('home_index.register_here') }}</a>
                             </p>
                         </form>
+                        <br>
+                        <a href="{{ route('social.redirect', 'facebook') }}" class="login_with_social"><i class="fa fa-facebook-square"></i> {{ trans('home_index.login_fb') }}</a><br/>
+                        <a href="{{ route('social.redirect', 'google') }}" class="login_with_social"><i class="fa fa-google"></i> {{ trans('home_index.login_gg') }}</a>
                     </div>
                 </div>
             </div>

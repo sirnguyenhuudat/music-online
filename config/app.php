@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         // Package create image thumbnail
         Intervention\Image\ImageServiceProvider::class,
+        // Login Fb, Gg with Socialite
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
 
@@ -229,6 +231,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         // Package create image thumbnail
         'Image' => Intervention\Image\Facades\Image::class,
+        // Login Fb, Gg with Socialite
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 
