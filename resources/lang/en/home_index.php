@@ -58,6 +58,8 @@ return [
     'forgot_password' => 'Forgot Password ?',
     'dont_have_account' => 'Don\'t Have An Account? ',
     'register_here' => 'register here',
+    'login_fb' => 'Login with Facebook',
+    'login_gg' => 'Login with Google',
     // choose language
     'language_selection' => 'language selection',
     'content_select_lang' => 'Please select the language(s) of the music you listen to.',
