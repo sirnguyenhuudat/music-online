@@ -77,9 +77,9 @@
                     <div class="ms_sidebar">
                         <div class="blog_comments">
                             @if(count($track->comments))
-                                <h1>{{ trans('home_track.comments') }}</h1>
+                                <h1>{{ trans('home_track.comments') }} ({{ count($track->comments) }})</h1>
                             @endif
-                            @forelse($track->comments->where('status', 1) as $comm)
+                            @forelse($track->comments as $comm)
                                 <ol>
                                     <li>
                                         <div class="ms_comment_section">
@@ -93,7 +93,7 @@
                                             <div class="comment_info">
                                                 <div class="comment_head">
                                                     <h3>{{ $comm->user->name }}</h3>
-                                                    <p>{{ $comm->created_at->diffForHumans() }}</p>
+                                                    <p>{{ $comm->diffForHumans }}</p>
                                                     <div>{{ $comm->content }}</div>
                                                 </div>
                                             </div>

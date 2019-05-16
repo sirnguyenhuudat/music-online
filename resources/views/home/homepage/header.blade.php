@@ -6,22 +6,24 @@
                         <input type="text" class="form-control" id="search-input" placeholder="{{ trans('home_index.search_music_here') }}" autocomplete="off">
                     </form>
                 </div>
-                <div class="ms_top_trend">
-                    <span>
-                        <a href="#"  class="ms_color">{{ trans('home_index.trending_title') }}</a>
-                    </span>
-                    <span class="top_marquee">
-                        @forelse($tracksTrending as $key => $track)
-                            @if($key < 3)
-                                <a href="{{ route('track.index', ['id' => $track->id, 'url' => $track->slug . '.html',]) }}">{{ $track->name }}</a>,
-                            @else
-                                <a href="{{ route('trending') }}">(+{{ count($tracksTrending) - 3 }} {{ trans('home_index.trending_more') }})</a>
-                                @break
-                            @endif
-                        @empty
-                        @endforelse
-                    </span>
-                </div>
+                @if(count($tracksTrending) > 0)
+                    <div class="ms_top_trend">
+                        <span>
+                            <a href="#"  class="ms_color">{{ trans('home_index.trending_title') }}</a>
+                        </span>
+                        <span class="top_marquee">
+                            @forelse($tracksTrending as $key => $track)
+                                @if($key < 3)
+                                    <a href="{{ route('track.index', ['id' => $track->id, 'url' => $track->slug . '.html',]) }}">{{ $track->name }}</a>,
+                                @else
+                                    <a href="{{ route('trending') }}">(+{{ count($tracksTrending) - 3 }} {{ trans('home_index.trending_more') }})</a>
+                                    @break
+                                @endif
+                            @empty
+                            @endforelse
+                        </span>
+                    </div>
+                @endif
             </div>
             <div class="ms_top_right">
                 <div class="ms_top_lang">

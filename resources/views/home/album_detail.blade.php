@@ -120,14 +120,14 @@
     <!-- Main Content Start-->
     <div class="ms_content_wrapper ms_album_content">
         <!-- Comments -->
-        @if(count($album->comments->where('status', 1)) > 0)
+        @if(count($album->comments)) > 0)
             <div class="ms_test_wrapper">
                 <div class="ms_heading">
-                    <h1>{{ trans('home_album.comments') }} ({{ count($album->comments->where('status', 1)) }})</h1>
+                    <h1>{{ trans('home_album.comments') }} ({{ count($album->comments) }})</h1>
                 </div>
                 <div class="ms_test_slider swiper-container">
                     <div class="swiper-wrapper">
-                        @forelse($album->comments->where('status', 1) as $comm)
+                        @forelse($album->comments as $comm)
                             <div class="swiper-slide">
                                 <div class="ms_test_box">
                                     <div class="ms_test_top">
@@ -138,7 +138,7 @@
                                         </div>
                                         <div class="ms_test_name">
                                             <h3>{{ $comm->user->name }}</h3>
-                                            <span class="cmnt_time">{{ $comm->created_at->diffForHumans() }}</span>
+                                            <span class="cmnt_time">{{ $comm->diffForHumans }}</span>
                                         </div>
                                     </div>
                                     <div class="ms_test_para">
