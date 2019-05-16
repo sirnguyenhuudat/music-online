@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Track\TrackEloquentRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Redis;
 
 class TrackController extends Controller
 {
@@ -79,25 +80,48 @@ class TrackController extends Controller
 
     public function index(Request $request, $id)
     {
-        $track = $this->_trackRepository->find($id);
-        if ($track) {
-            $data['title_page'] = $track->name;
-            $data['track'] = $track;
-            if ($request->cookie('arrTrackId') != false) {
-                $arrTrackId = json_decode($request->cookie('arrTrackId'), true);
-                if (!in_array($id, $arrTrackId)) {
-                    array_unshift($arrTrackId, $id);
-                    if (count($arrTrackId) > config('conf.track_index_numberTrackRecently')) {
-                        array_pop($arrTrackId);
-                    }
-                }
-            } else {
-                $arrTrackId = [$id];
-            }
+        $ip = $request->getClientIp();
+        if (Redis::exists($ip . '_track_' . $id)) {
+            $tmp = json_decode(Redis::get($ip . '_track_' . $id));
+            $data['title_page'] = $tmp->title_page;
+            $data['track'] = $tmp->track;
 
-            return response()->view('home.track', $data)->cookie('arrTrackId', json_encode($arrTrackId));
-        } else {
-            return redirect()->route('home');
+            return view('home.track', $data);
+        } else{
+            $track = $this->_trackRepository->find($id);
+            if ($track) {
+                $data['title_page'] = $track->name;
+                if ($request->cookie('arrTrackId') != false) {
+                    $arrTrackId = json_decode($request->cookie('arrTrackId'), true);
+                    if (!in_array($id, $arrTrackId)) {
+                        array_unshift($arrTrackId, $id);
+                        if (count($arrTrackId) > config('conf.track_index_numberTrackRecently')) {
+                            array_pop($arrTrackId);
+                        }
+                    }
+                } else {
+                    $arrTrackId = [$id];
+                }
+                // insert view
+                $track->views = $track->views + 1;
+                $track->week_view = $track->week_view +1;
+                $track->month_view = $track->month_view +1;
+                $track->save();
+                // put data for convenience when get redis cached
+                $track->comments = $track->comments->where('status', 1);
+                foreach ($track->comments as $key => $comm) {
+                    $track->comments[$key]->diffForHumans = $comm->created_at->diffForHumans();
+                    $track->comments[$key]->user = $comm->user;
+                }
+                $tmpArtist = $track->artist;
+                $track->artist = $tmpArtist;
+                $data['track'] = $track;
+                Redis::set($ip . '_track_' . $id, json_encode($data), 'EX', 300);
+
+                return response()->view('home.track', $data)->cookie('arrTrackId', json_encode($arrTrackId));
+            } else {
+                return redirect()->route('home');
+            }
         }
     }
 
