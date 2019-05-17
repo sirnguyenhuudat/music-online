@@ -17,6 +17,8 @@ class Album extends Model
         'week_view',
         'month_view',
         'views',
+        'view_last_week',
+        'view_last_month',
     ];
 
     public function artist()
