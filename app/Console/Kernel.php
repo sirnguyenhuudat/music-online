@@ -13,7 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\MonthlyAlbumCommand',
+        'App\Console\Commands\MonthlyTrackCommand',
+        'App\Console\Commands\WeeklyAlbumCommand',
+        'App\Console\Commands\WeeklyTrackCommand',
     ];
 
     /**
@@ -24,8 +27,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('track:update_month_view')->monthlyOn(1, '0:00')->timezone('Asia/Ho_Chi_Minh');
+        $schedule->command('track:update_week_view')->weeklyOn(1, '0:30')->timezone('Asia/Ho_Chi_Minh');
+        $schedule->command('album:update_month_view')->monthlyOn(1, '1:00')->timezone('Asia/Ho_Chi_Minh');
+        $schedule->command('album:update_week_view')->weeklyOn(1, '1:30')->timezone('Asia/Ho_Chi_Minh');
     }
 
     /**
