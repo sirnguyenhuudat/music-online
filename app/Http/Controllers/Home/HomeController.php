@@ -9,6 +9,7 @@ use App\Repositories\Track\TrackEloquentRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -123,5 +124,12 @@ class HomeController extends Controller
         $data['trending'] = $this->_trackRepository->getFullTracksTrending();
 
         return view('home.trending', $data);
+    }
+
+    public function changeLanguage(Request $request)
+    {
+        Session::put('website-language', $request->input('language'));
+
+        return redirect()->back();
     }
 }
