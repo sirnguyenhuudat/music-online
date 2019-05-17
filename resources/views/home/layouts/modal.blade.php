@@ -146,23 +146,26 @@
                     <h1>{{ trans('home_index.language_selection') }}</h1>
                     <p>{{ trans('home_index.content_select_lang') }}</p>
                     <ul class="lang_list">
-                        <li>
-                            <label class="lang_check_label">
-                                {{ trans('home_index.english') }}
-                                <input type="checkbox" name="check">
-                                <span class="label-text"></span>
-                            </label>
-                        </li>
-                        <li>
-                            <label class="lang_check_label">
-                                {{ trans('home_index.vietnamese') }}
-                                <input type="checkbox" name="check">
-                                <span class="label-text"></span>
-                            </label>
-                        </li>
+                        <form action="{{ route('home.change-language') }}" method="post" id="website-lang">
+                            @csrf
+                            <li>
+                                <label class="lang_check_label">
+                                    {{ trans('home_index.english') }}
+                                    <input type="radio" name="language" value="en" {{ config('app.locale') == 'en' ? 'checked' : '' }}>
+                                    <span class="label-text"></span>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="lang_check_label">
+                                    {{ trans('home_index.vietnamese') }}
+                                    <input type="radio" name="language" value="vi" {{ config('app.locale') == 'vi' ? 'checked' : '' }}>
+                                    <span class="label-text"></span>
+                                </label>
+                            </li>
+                        </form>
                     </ul>
                     <div class="ms_lang_btn">
-                        <a href="#" class="ms_btn">{{ trans('home_index.apply') }}</a>
+                        <a href="javascript:void(0)" class="ms_btn" onclick="document.getElementById('website-lang').submit()">{{ trans('home_index.apply') }}</a>
                     </div>
                 </div>
             </div>

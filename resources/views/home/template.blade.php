@@ -43,6 +43,9 @@
             float: left;
             color: white;
         }
+        .ms_lang_btn a.ms_btn{
+            opacity: 1 !important;
+        }
     </style>
     <script>
         var baseUrl = '{{ url('/') }}';

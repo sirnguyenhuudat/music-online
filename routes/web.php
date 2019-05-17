@@ -17,6 +17,7 @@ Route::group([
     'prefix' => '/backend',
     'as' => 'backend.',
     'namespace' => 'Backend',
+    'middleware' => 'locale',
 ], function () {
     Route::resource('genres', 'GenreController')->middleware('auth');
     Route::get('artist/featured/{id}', 'ArtistController@setFeatured')->middleware('auth');
@@ -38,7 +39,11 @@ Route::group([
 Route::group([
     'prefix' => '/',
     'namespace' => 'Home',
+    'middleware' => 'locale',
 ], function () {
+    // change language
+    Route::post('change-language', 'HomeController@changeLanguage')->name('home.change-language');
+    // Home page
     Route::get('home', 'HomeController@index')->name('home');
     // Package Typehead search
     Route::get('search/track', 'HomeController@searchByTrack');
@@ -82,7 +87,7 @@ Route::group([
     // Artist
     Route::get('list-artist.html', 'ArtistController@index')->name('artist.index');
     Route::get('artist/{id}/{url}', 'ArtistController@show')->name('artist.show')->where('id', '[0-9]+');
-
+    // login with socialite
     Route::get('redirect/{social}', 'SocialAuthController@redirect')->name('social.redirect');
     Route::get('callback/{social}', 'SocialAuthController@callback')->name('social.callback');
 });
