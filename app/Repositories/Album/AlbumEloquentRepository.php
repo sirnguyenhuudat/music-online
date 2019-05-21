@@ -49,4 +49,12 @@ class AlbumEloquentRepository extends EloquentRepository
     {
         return $this->_model->orderBy('featured', 'desc')->orderBy('id', 'desc')->get();
     }
+
+    public function getViewsAlbums()
+    {
+        $data['viewsInLastMonth'] = $this->_model->select('id', 'created_at', 'month_view')->sum('view_last_month');
+        $data['viewsInMonth'] = $this->_model->select('id', 'created_at', 'month_view')->sum('month_view');
+
+        return $data;
+    }
 }
