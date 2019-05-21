@@ -3,6 +3,7 @@ namespace App\Repositories\Track;
 
 use App\Repositories\EloquentRepository;
 use App\Models\Track;
+use Carbon\Carbon;
 
 class TrackEloquentRepository extends EloquentRepository
 {
@@ -53,5 +54,46 @@ class TrackEloquentRepository extends EloquentRepository
     public function getFullTracksTrending()
     {
         return $this->_model->where('trending', 1)->get();
+    }
+
+    public function getTracksAdded()
+    {
+        $tracks = $this->_model->select('id', 'created_at')
+            ->get()
+            ->groupBy(function($date) {
+                return Carbon::parse($date->created_at)->format('m'); // grouping by months
+            });
+
+        $trackMonthCount = [];
+        $trackArr = [];
+
+        foreach ($tracks as $key => $value) {
+            $trackMonthCount[(int)$key] = count($value);
+        }
+        $monthCurrent = date('n');
+        for ($i = 1; $i <= 12; $i++) {
+            if ($i <= $monthCurrent) {
+                if (!empty($trackMonthCount[$i])) {
+                    $trackArr[$i] = $trackMonthCount[$i];
+                } else {
+                    $trackArr[$i] = 0;
+                }
+            }
+        }
+
+        return $trackArr;
+    }
+
+    public function getViewsTracks()
+    {
+        $data['viewsInLastMonth'] = $this->_model->select('id', 'created_at', 'month_view')->sum('view_last_month');
+        $data['viewsInMonth'] = $this->_model->select('id', 'created_at', 'month_view')->sum('month_view');
+
+        return $data;
+    }
+
+    public function getTotalTracks()
+    {
+        return $this->_model->select('id')->count();
     }
 }

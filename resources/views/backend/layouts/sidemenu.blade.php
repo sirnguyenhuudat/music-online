@@ -8,7 +8,7 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li>
-                        <a href="#">{{ trans('backend_template.statistical') }}</a>
+                        <a href="{{ route('backend.statical') }}">{{ trans('backend_template.statistical') }}</a>
                     </li>
                     <li class="active has-sub">
                         <a class="js-arrow" href="#">{{ trans('backend_template.management') }}</a>

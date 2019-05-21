@@ -19,6 +19,7 @@ Route::group([
     'namespace' => 'Backend',
     'middleware' => 'locale',
 ], function () {
+    Route::get('statical' , 'HomeController@index')->name('statical');
     Route::resource('genres', 'GenreController')->middleware('auth');
     Route::get('artist/featured/{id}', 'ArtistController@setFeatured')->middleware('auth');
     Route::resource('artists', 'ArtistController')->middleware('auth');
