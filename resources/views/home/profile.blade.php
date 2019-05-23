@@ -41,6 +41,9 @@
                                     <li>{{ $member->email }}
                                         <span>- {{ trans('home_member.email') }}</span>
                                     </li>
+                                    <li>{{ $member->birthday }}
+                                        <span>- {{ trans('home_member.birthday') }}</span>
+                                    </li>
                                     <li>{{ $member->created_at->diffforHumans() }}
                                         <span>- {{ trans('home_member.created_at') }}</span>
                                     </li>

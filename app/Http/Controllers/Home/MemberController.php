@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Requests\UpdateMember;
 use App\Repositories\User\UserEloquentRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,7 @@ class MemberController extends Controller
         if ($member && Auth::id() == $member->id) {
             $dataUpdate = [
                 'name' => $request->input('name'),
+                'birthday' => Carbon::parse($request->input('birthday')),
             ];
             if ($request->input('password') != '') {
                 $dataUpdate['password'] = bcrypt($request->input('password'));
