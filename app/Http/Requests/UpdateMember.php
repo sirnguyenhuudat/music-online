@@ -27,6 +27,7 @@ class UpdateMember extends FormRequest
             'name' => 'required|string|max:255',
             'password' => 'confirmed',
             'avatar' => 'image|max:1024',
+            'birthday' => 'date',
         ];
     }
 }

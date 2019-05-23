@@ -45,8 +45,13 @@
                             <label>{{ trans('home_member.confirm_pass') }}</label>
                             <input type="password" name="password_confirmation" placeholder="******" class="form-control">
                         </div>
+                        <div class="form-group {{ $errors->has('birthday') ? 'has-warning' : '' }}">
+                            <label>{{ trans('home_member.birthday') }}</label>
+                            <small class="form-text text-muted">{{ $errors->first('birthday') }}</small>
+                            <input type="text" name="birthday" class="form-control {{ $errors->has('birthday') ? 'is-invalid' : '' }}" id="birthday">
+                        </div>
                         <div class="pro-form-btn text-center marger_top15">
-                            <a href="#" class="ms_btn" onclick="event.preventDefault(); document.getElementById('form_update_info').submit()">{{ trans('home_member.save') }}"</a>
+                            <a href="#" class="ms_btn" onclick="event.preventDefault(); document.getElementById('form_update_info').submit()">{{ trans('home_member.save') }}</a>
                             <a href="{{ route('home') }}" class="ms_btn">{{ trans('home_member.cancel') }}</a>
                         </div>
                     </form>
@@ -57,8 +62,15 @@
 @endsection
 
 @section ('style')
+    <link rel="stylesheet" href="{{ asset(config('bower.home_css') . 'jquery-ui-datepicker.css') }}">
 @endsection
 
 @section('script')
+    <script src="{{ asset(config('bower.home_js') . 'jquery-ui-datepicker.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#birthday').datepicker();
+        })
+    </script>
 @endsection
 

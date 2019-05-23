@@ -20,4 +20,5 @@ return [
     'your_pass' => 'Mật khẩu *',
     'confirm_pass' => 'Xác nhận mật khẩu *',
     'updated' => 'Cập nhật thành công',
+    'birthday' => 'Ngày sinh',
 ];

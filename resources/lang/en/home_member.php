@@ -20,4 +20,5 @@ return [
     'your_pass' => 'Your Password *',
     'confirm_pass' => 'Confirm Password *',
     'updated' => 'Update successfully',
+    'birthday' => 'Birthday',
 ];
