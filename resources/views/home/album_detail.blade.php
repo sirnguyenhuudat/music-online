@@ -205,9 +205,5 @@
 @endsection
 
 @section ('style')
-    <style>
-        small.form-text {
-            color: red !important;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/frontend/album_detail.css') }}">
 @endsection

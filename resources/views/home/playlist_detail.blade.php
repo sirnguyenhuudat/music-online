@@ -5,9 +5,9 @@
 @endsection
 
 @section('content')
-    <!-- Header -->
+    {{-- HEADER --}}
     @include('home.homepage.header')
-    <!-- Album Single Section Start-->
+    {{-- Playlist --}}
     <div class="ms_album_single_wrapper">
         <div class="album_single_data">
             @if (session('success'))
@@ -64,7 +64,7 @@
                                 </li>
                                 @if(Auth::id() === $playlist->user_id)
                                     <li>
-                                        <a href="javascript:void(0)" onclick="!window.confirm('{{ trans('home_playlist.alert_remove_track', ['track' => $track->name, 'playlist' => $playlist->name,]) }}') ? false : document.getElementById('remove_track_{{ $track->id }}').submit()"><span class="opt_icon"><span class="icon icon_playlst"></span></span>{{ trans('home_playlist.remove_track_to_playlist') }}</a>
+                                        <a href="javascript:void(0)" onclick="!window.confirm('{{ trans('home_playlist.alert_remove_track', ['track' => $track->name, 'playlist' => $playlist->title,]) }}') ? false : document.getElementById('remove_track_{{ $track->id }}').submit()"><span class="opt_icon"><span class="icon icon_playlst"></span></span>{{ trans('home_playlist.remove_track_to_playlist') }}</a>
                                         <form action="{{ route('playlist.remove_track', ['playlist_id' => $playlist->id, 'track_id' => $track->id,]) }}" id="remove_track_{{ $track->id }}" method="post">
                                             @csrf
                                             @method('delete')
@@ -114,15 +114,10 @@
             </div>
         </div>
     </div>
-    <!-- Audio Player Section -->
     @include('home.layouts.player')
-    @include('home.layouts.extends');
+    @include('home.layouts.extends')
 @endsection
 
-@section ('style')
-    <style>
-        .delete_playlist{
-            background: red;
-        }
-    </style>
+@section('style')
+    <link rel="stylesheet" href="{{ asset('css/frontend/playlist_detail.css') }}">
 @endsection

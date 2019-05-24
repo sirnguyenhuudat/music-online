@@ -85,3 +85,6 @@
     @include('home.layouts.extends');
 @endsection
 
+@section('style')
+    <link rel="stylesheet" href="{{ asset('css/frontend/genre_detail.css') }}">
+@endsection

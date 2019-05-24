@@ -88,39 +88,19 @@
 <script type="text/javascript" src="{{ asset(config('bower.home_js') . 'my-script.js') }}"></script>
 @yield('script')
 @error('email')
-<script>
-    $(document).ready(function () {
-        $('#modalLogin').modal('show');
-    })
-</script>
+    <script type="text/javascript" src="{{ asset('js/frontend/login.js') }}"></script>
 @enderror
 @error('password')
-<script>
-    $(document).ready(function () {
-        $('#modalLogin').modal('show');
-    })
-</script>
+    <script type="text/javascript" src="{{ asset('js/frontend/login.js') }}"></script>
 @enderror
 @error('name_reg')
-<script>
-    $(document).ready(function () {
-        $('#modalRegister').modal('show');
-    })
-</script>
+    <script type="text/javascript" src="{{ asset('js/frontend/register.js') }}"></script>
 @enderror
 @error('email_reg')
-<script>
-    $(document).ready(function () {
-        $('#modalRegister').modal('show');
-    })
-</script>
+    <script type="text/javascript" src="{{ asset('js/frontend/register.js') }}"></script>
 @enderror
 @error('password_reg')
-<script>
-    $(document).ready(function () {
-        $('#modalRegister').modal('show');
-    })
-</script>
+    <script type="text/javascript" src="{{ asset('js/frontend/register.js') }}"></script>
 @enderror
 </body>
 

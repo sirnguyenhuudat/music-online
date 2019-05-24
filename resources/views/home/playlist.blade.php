@@ -97,20 +97,12 @@
 </div>
 @section ('style')
     @error('title')
-    <style>
-        small.form-text {
-            text-align: left;
-        }
-    </style>
+        <link rel="stylesheet" href="{{ asset('css/frontend/playlist.css') }}">
     @enderror
 @endsection
 
 @section('script')
     @error('title')
-    <script>
-        $(document).ready(function () {
-            $('#modalCreatePlaylist').modal('show');
-        });
-    </script>
+        <script src="{{ asset('js/frontend/playlist.js') }}"></script>
     @enderror
 @endsection
