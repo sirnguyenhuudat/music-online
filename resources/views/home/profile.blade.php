@@ -1,6 +1,6 @@
-@extends ('home.template')
+@extends('home.template')
 
-@section ('title_page')
+@section('title_page')
     {{ $title_page }}
 @endsection
 
@@ -68,11 +68,7 @@
 @endsection
 
 @section ('style')
-    <style>
-        .ms_acc_ovrview_list{
-            width:100%;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/frontend/profile.css') }}">
 @endsection
 
 @section('script')

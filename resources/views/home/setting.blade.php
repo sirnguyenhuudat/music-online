@@ -1,6 +1,6 @@
-@extends ('home.template')
+@extends('home.template')
 
-@section ('title_page')
+@section('title_page')
     {{ $title_page }}
 @endsection
 
@@ -61,16 +61,12 @@
     </div>
 @endsection
 
-@section ('style')
+@section('style')
     <link rel="stylesheet" href="{{ asset(config('bower.home_css') . 'jquery-ui-datepicker.css') }}">
 @endsection
 
 @section('script')
     <script src="{{ asset(config('bower.home_js') . 'jquery-ui-datepicker.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('#birthday').datepicker();
-        })
-    </script>
+    <script src="{{ asset('js/frontend/birthday.js') }}"></script>
 @endsection
 

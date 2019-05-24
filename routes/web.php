@@ -53,6 +53,7 @@ Route::group([
     // Track
     Route::get('track/{id}', 'TrackController@getTrackByAjax')->where('id', '[0-9]+');
     Route::get('track/{id}/{url}', 'TrackController@index')->name('track.index')->where('id', '[0-9]+');
+    Route::get('track/current', 'TrackController@getTrackCurrent');
     // Album
     Route::get('albums/{url}', 'AlbumController@index')->name('albums');
     Route::get('album/{id}/{url}', 'AlbumController@detail')->name('album.detail')->where('id', '[0-9]+');

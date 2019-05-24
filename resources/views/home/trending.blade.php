@@ -108,3 +108,6 @@
     @include('home.layouts.extends');
 @endsection
 
+@section('style')
+    <link rel="stylesheet" href="{{ asset('css/frontend/trending.css') }}">
+@endsection
