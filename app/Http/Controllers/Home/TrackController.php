@@ -187,7 +187,7 @@ class TrackController extends Controller
 
     public function getTrackCurrent(Request $request)
     {
-        if ($request->ajax()) {
+        if ($request->ajax() && $request->cookie('trackCurrent') != false) {
             return response()->json($request->cookie('trackCurrent'));
         }
     }
