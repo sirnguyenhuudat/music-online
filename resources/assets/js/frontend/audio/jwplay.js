@@ -3,48 +3,88 @@ $(document).ready(function () {
     $.ajax({
         'url': baseUrl + '/track/current' ,
         'type': 'get',
-        'success': function (result) {
-            if (result !== '') {
+        'success': function (results) {
+            if (results !== '') {
                 $('.audio-player').show();
-                result = JSON.parse(result);
-                var trackCurrent = {
-                    image: result.picture,
-                    title: result.name,
-                    artist: result.artist,
-                    mp3: result.path,
-                    option: myPlayListOtion
-                };
+                var trackCurrent = [];
+                $.each(results, function (key, val) {
+                    trackCurrent.push({
+                        image: val.picture,
+                        title: val.name,
+                        artist: val.artist,
+                        mp3: val.path,
+                        option: myPlayListOtion
+                    });
+                });
                 audioPlayer(trackCurrent);
+                $('.que_text').html('<i class="fa fa-angle-up" aria-hidden="true"></i> queue (' + results.length + ')');
             }
         }
     });
+    // select track
     $('.weekly_play_icon').on('click', function () {
         $('#jquery_jplayer_1').jPlayer('destroy');
         var track_id = $(this).attr('id');
         $.ajax({
             'type': 'get',
             'url': baseUrl + '/' + 'track/' + track_id,
-            'async': true,
-            'success': function (result) {
+            'async': false,
+            'success': function (results) {
                 $('.audio-player').show();
-                var track = {
-                    image: baseUrl + '/' + result.picture,
-                    title: result.name,
-                    artist: result.artist,
-                    mp3: result.path,
-                    option: myPlayListOtion
-                };
-                audioPlayer(track);
+                var tracks = [];
+                $.each(results, function (key, val) {
+                    tracks.push({
+                        image: val.picture,
+                        title: val.name,
+                        artist: val.artist,
+                        mp3: val.path,
+                        option: myPlayListOtion
+                    });
+                });
+                audioPlayer(tracks);
             }
         })
     });
+    // add track to queue
+    $('a.add_to_queue').on('click', function() {
+        var track_id = $(this).attr('attr-id');
+        $.ajax({
+            'type': 'get',
+            'url': baseUrl + '/queue/track/' + track_id,
+            'async': false,
+            'success': function (result) {
+                $('.que_text').html('<i class="fa fa-angle-up" aria-hidden="true"></i> queue (' + result.length + ')');
+                var xhtml = infoAudio(result);
+                $('#mCSB_2_container ul[style]').append(xhtml);
+                $('.playInQueue').on('click', function (){
+                    $('#jquery_jplayer_1').jPlayer('destroy');
+                    $(window).load(baseUrl + '/queue/get', function (results) {
+                        results = JSON.parse(results);
+                        var data = [];
+                        $.each(results, function (key, value) {
+                            data.push({
+                                image: baseUrl + '/' + value.picture,
+                                title: value.name,
+                                artist: value.artist,
+                                mp3: value.path,
+                                option: myPlayListOtion
+                            })
+                        });
+                        $('#jquery_jplayer_1').jPlayer('destroy');
+                        audioPlayer(data);
+                    });
+                });
+            }
+        });
+    });
 });
-function audioPlayer (arrTracks) {
+
+function audioPlayer (data) {
     if ($('.audio-player').length) {
         var myPlaylist = new jPlayerPlaylist({
             jPlayer: '#jquery_jplayer_1',
             cssSelectorAncestor: '#jp_container_1'
-        }, [arrTracks], {
+        }, data, {
             swfPath: 'js/plugins',
             supplied: 'oga, mp3',
             wmode: 'window',
@@ -83,7 +123,6 @@ function audioPlayer (arrTracks) {
             }).mouseup(function() {
                 $(window).unbind("mousemove");
             });
-
             function getRotationDegrees(obj) {
                 var matrix = obj.css('-webkit-transform') || obj.css('-moz-transform') || obj.css('-ms-transform') ||  obj.css('-o-transform') || obj.css('transform');
                 if(matrix !== 'none') {
@@ -138,7 +177,63 @@ function audioPlayer (arrTracks) {
                 var playlistId = $(this).data('playlist-id');
                 myPlaylist.play(playlistId);
             });
-
         });
     }
 }
+
+function infoAudio (result) {
+    var xhtml = '';
+    xhtml += '<li class="playInQueue">';
+        xhtml += '<div>';
+            xhtml += '<a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a>';
+            xhtml += '<a href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="0">';
+                xhtml += '<span class="que_img">';
+                    xhtml += '<img src="' + baseUrl + '/' + result.picture + '">';
+                xhtml += '</span>';
+                xhtml += '<div class="que_data">' + result.name;
+                    xhtml += '<span class="jp-artist">by ' + result.artist + '</span>';
+                xhtml += '</div>';
+            xhtml += '</a>';
+            xhtml += '<div class="action">';
+                xhtml += '<span class="que_more">';
+                    xhtml += '<img src="https://localhost/music-online/public/bower_components/package-music-online/home/images/svg/more.svg">';
+                xhtml += '</span>';
+                xhtml += '<span class="que_close">';
+                    xhtml += '<img src="https://localhost/music-online/public/bower_components/package-music-online/home/images/svg/close.svg">';
+                xhtml += '</span>';
+            xhtml += '</div>';
+        xhtml += '</div>';
+        xhtml += '<ul class="more_option"></ul>';
+    xhtml += '</li>';
+
+    return xhtml;
+}
+
+function removeTrackInQueue(title) {
+    var myPlayListOtion = '<ul class="more_option"></ul>';
+    $(document).ready(function () {
+        $.ajax({
+            'type': 'get',
+            'url': baseUrl + '/queue/delete/' + title,
+            'success': function (results) {
+                $('#jquery_jplayer_1').jPlayer('destroy');
+                if (results.length == 0) {
+                    $('.audio-player').hide();
+                } else {
+                    var data = [];
+                    $.each(results, function (key, value) {
+                        data.push({
+                            image: baseUrl + '/' + value.picture,
+                            title: value.name,
+                            artist: value.artist,
+                            mp3: value.path,
+                            option: myPlayListOtion
+                        })
+                    });
+                    audioPlayer(data);
+                }
+            }
+        })
+    });
+}
+

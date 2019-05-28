@@ -50,7 +50,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="javascript:void(0)" class="add_to_queue" attr-id="{{ $trackOfWeek->id }}">
                                         <span class="opt_icon"><span class="icon icon_queue"></span></span>{{ trans('home_index.add_to_queue') }}
                                     </a>
                                 </li>

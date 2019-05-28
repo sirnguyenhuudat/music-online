@@ -31,32 +31,6 @@ class TrackController extends Controller
         $this->_artistRepository = new ArtistEloquentRepository();
     }
 
-    public function getQueueTracksByAjax(Request $request, $id)
-    {
-        if ($request->ajax()) {
-            if ($request->cookie('arrTrackId') != false) {
-                $arrTrackId = json_decode($request->cookie('arrTrackId'), true);
-                array_unshift($arrTrackId, $id);
-            } else {
-                $arrTrackId = [$id];
-            }
-            $tracks = $this->_trackRepository->getTracksByArrId('id', $arrTrackId);
-            if ($tracks) {
-                $data = [];
-                foreach ($tracks as $track) {
-                    $data[] = [
-                        'name' => $track->name,
-                        'artist' => $track->artist->name,
-                        'path' => convertURL($track->path),
-                        'picture' => $track->artist->avatar == '' ? getThumbName(config('image.icon') . 'artist.png') : getThumbName($track->artist->avatar),
-                    ];
-                }
-
-                return response()->json($data)->cookie('arrTrackId', json_encode($arrTrackId));
-            }
-        }
-    }
-
     public function getTrackByAjax(Request $request, $id)
     {
         if ($request->ajax()) {
@@ -72,8 +46,15 @@ class TrackController extends Controller
                 } else {
                     $data['picture'] = getThumbName($track->artist->avatar);
                 }
+                if ($request->cookie('trackInQueue') != false) {
+                    $tracksInQueue = json_decode($request->cookie('trackInQueue'), true);
+                    $trackCurrent[] = $data;
+                    $tracks = array_merge([$data], $tracksInQueue);
+                } else {
+                    $tracks[] = $data;
+                }
 
-                return response()->json($data)->cookie('trackCurrent', json_encode($data), time() + 3600);
+                return response()->json($tracks)->cookie('trackCurrent', json_encode($data), time() + 3600);
             }
         }
     }
@@ -188,7 +169,12 @@ class TrackController extends Controller
     public function getTrackCurrent(Request $request)
     {
         if ($request->ajax() && $request->cookie('trackCurrent') != false) {
-            return response()->json($request->cookie('trackCurrent'));
+            $trackCurrent[] = json_decode($request->cookie('trackCurrent'), true);
+            if ($request->cookie('trackInQueue') != false) {
+                $trackInQueue = json_decode($request->cookie('trackInQueue'), true);
+                $trackCurrent = array_merge($trackCurrent, $trackInQueue);
+            }
+            return response()->json($trackCurrent);
         }
     }
 }
