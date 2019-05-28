@@ -92,6 +92,11 @@ Route::group([
     // login with socialite
     Route::get('redirect/{social}', 'SocialAuthController@redirect')->name('social.redirect');
     Route::get('callback/{social}', 'SocialAuthController@callback')->name('social.callback');
+    // add track to queue
+    Route::get('queue/track/{id}', 'QueueController@addTrackToQueue')->where('id', '[0-9]+');
+    Route::get('queue/get', 'QueueController@getQueueTracksByAjax');
+    Route::delete('queue/destroy', 'QueueController@destroy')->name('queue.destroy');
+    Route::get('queue/delete/{name}', 'QueueController@delete');
 });
 
 Auth::routes();

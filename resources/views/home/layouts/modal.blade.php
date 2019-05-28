@@ -184,10 +184,15 @@
                 <div class="modal-body">
                     <h1>{{ trans('home_index.clear_content') }}</h1>
                     <div class="clr_modal_btn">
-                        <a href="#">{{ trans('home_index.clear_all') }}</a>
-                        <a href="#">{{ trans('home_index.cancel') }}</a>
+                        <a href="javascript:void(0)" onclick="document.getElementById('destroy_queue').submit();">{{ trans('home_index.clear_all') }}</a>
+
+                        <a href="javascript:void(0)">{{ trans('home_index.cancel') }}</a>
                     </div>
                 </div>
+                <form action="{{ route('queue.destroy') }}" method="post" id="destroy_queue">
+                    @csrf
+                    @method('delete')
+                </form>
             </div>
         </div>
     </div>
