@@ -18,6 +18,10 @@ mix.js([
     'resources/assets/js/frontend/templates/login.js',
 ], 'public/js/frontend/login.js');
 
+mix.copy([
+    'resources/assets/js/backend/tracks/track.js',
+], 'public/js/backend/backend.js');
+
 mix.js([
     'resources/assets/js/frontend/templates/register.js',
 ], 'public/js/frontend/register.js');

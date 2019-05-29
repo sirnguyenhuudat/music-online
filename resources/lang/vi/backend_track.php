@@ -20,7 +20,7 @@ return [
     'td_action' => 'Hành động',
     'td_genre' => 'Thể loại',
     'label_cancel' => 'Hủy',
-    'alert_script' => 'Bạn có muốn xóa bài hát \":name\"?',
+    'alert_script' => 'Bạn có muốn xóa bài hát :name?',
     'year_active' => 'Năm hoạt động',
     'year' => 'năm',
     'label_album_released' => 'Album đã phát hành',

@@ -26,6 +26,9 @@
     <!-- Main CSS-->
     <link href="{{ asset('bower_components/package-music-online/css/theme.css') }}" rel="stylesheet" media="all">
     @yield('style')
+    <script>
+        var baseUrl = '{{ url('/') }}';
+    </script>
 </head>
 
 <!-- <body class="animsition"> -->
