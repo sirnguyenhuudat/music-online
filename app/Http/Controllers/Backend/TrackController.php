@@ -10,6 +10,7 @@ use App\Repositories\Genre\GenreEloquentRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use Yajra\DataTables\Facades\DataTables;
 
 class TrackController extends Controller
 {
@@ -33,7 +34,6 @@ class TrackController extends Controller
     public function index()
     {
         $data['title_page'] = trans('backend_track.index_title');
-        $data['tracks'] = $this->_trackRepository->listTrack();
 
         return view('backend.tracks.index', $data);
     }
@@ -194,5 +194,53 @@ class TrackController extends Controller
             }
 
         }
+    }
+
+    public function getTracksFromDatatables()
+    {
+        $stt = 0;
+
+        return DataTables::of($this->_trackRepository->getDataToDataTables())
+            ->addColumn('stt', function ($track) use(&$stt){
+                $stt++;
+
+                return $stt;
+            })
+            ->addColumn('artist', function ($track) {
+                return $track->artist->name;
+            })
+            ->addColumn('genres', function ($track) {
+                $genres = '';
+                foreach ($track->genres as $genre) {
+                    $genres .= $genre->name . ', ';
+                }
+
+                return $genres;
+            })
+            ->addColumn('actions', function ($track) {
+                $xhtml = '';
+                $classTagA = $track->trending ? 'btn-danger' : 'btn-info';
+                $xhtml .= '<a href="javascript:void(0)" attr-id="' . $track->id . '" class="btn ' . $classTagA . ' add_trending">';
+                    $classTagI = $track->trending ? 'zmdi-trending-down' : 'zmdi-trending-up';
+                    $xhtml .= '<i class="zmdi ' . $classTagI . '"></i>';
+                $xhtml .= '</a>&nbsp;';
+                $xhtml .= '<a href="' . route('backend.tracks.edit', $track->id) . '" class="btn btn-primary">';
+                    $xhtml .= '<i class="zmdi zmdi-edit"></i>';
+                $xhtml .= '</a>&nbsp;';
+                $lang = trans('backend_track.alert_script', ['name' => $track->name,]);
+                $txtDel = "delete_track_$track->id";
+                $xhtml .= "<a href='javascript:void(0);' class='btn btn-danger' onclick='!window.confirm(\"$lang\") ? false : document.getElementById(\"$txtDel\").submit();'>";
+                    $xhtml .= '<i class="zmdi zmdi-delete"></i>';
+                $xhtml .= '</a>';
+                $url = route('backend.tracks.destroy', $track->id);
+                $xhtml .= '<form action="' . $url . '" method="post" id="' . $txtDel . '">';
+                $xhtml .= csrf_field();
+                $xhtml .= method_field('delete');
+                $xhtml .= '</form>';
+
+                return $xhtml;
+            })
+            ->rawColumns(['actions',])
+            ->make(true);
     }
 }

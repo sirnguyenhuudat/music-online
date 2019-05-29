@@ -24,6 +24,7 @@ Route::group([
     Route::get('artist/featured/{id}', 'ArtistController@setFeatured')->middleware('auth');
     Route::resource('artists', 'ArtistController')->middleware('auth');
     Route::get('track/trending/{id}', 'TrackController@setTrending')->middleware('auth');
+    Route::get('tracks/get-datatables', 'TrackController@getTracksFromDatatables');
     Route::resource('tracks', 'TrackController')->middleware('auth');
     Route::get('album/featured/{id}', 'AlbumController@setFeatured')->middleware('auth');
     Route::resource('albums', 'AlbumController')->middleware('auth');

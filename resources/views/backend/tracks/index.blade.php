@@ -51,48 +51,7 @@
                                     <th class="th-sm">{{ trans('backend_track.td_action') }}</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                @forelse ($tracks as $key => $track)
-                                    <tr>
-                                        <td>{{ ++$key }}</td>
-                                        <td><a href="javascript:void(0)" data-toggle="modal" data-target="#track_name_{{ $track->id }}">{{ $track->name }}</a></td>
-                                        <td>{{ $track->author }}</td>
-                                        <td>{{ $track->artist->name }}</td>
-                                        <td>{{ $track->source }}</td>
-                                        <td>
-                                            @forelse($track->genres as $genre)
-                                                {{ $genre->name }},&nbsp;
-                                            @empty
-                                                {{ trans('backend_track.empty_genre') }}
-                                            @endforelse
-                                        </td>
-                                        <td>
-                                            <a href="javascript:void(0)" attr-id="{{ $track->id }}" class="btn {{ $track->trending ? 'btn-danger' : 'btn-info' }} add_trending"><i class="zmdi {{ $track->trending ? 'zmdi-trending-down' : 'zmdi-trending-up' }}"></i></a>
-                                            <a href="{{ route('backend.tracks.edit', $track->id) }}" class="btn btn-primary"><i class="zmdi zmdi-edit"></i></a>
-                                            <a href="{{ route('backend.tracks.destroy', $track->id) }}" class="btn btn-danger" onclick="event.preventDefault();
-                                                    !window.confirm('{{ trans('backend_track.alert_script', ['name' => $track->name,]) }}') ? false : document.getElementById('delete_track_{{ $track->id }}').submit();">
-                                                <i class="zmdi zmdi-delete"></i>
-                                            </a>
-                                            <form action="{{ route('backend.tracks.destroy', $track->id) }}" method="post" id="delete_track_{{ $track->id }}">
-                                                @csrf
-                                                @method('delete')
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @empty
-                                @endforelse
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th class="th-sm">#</th>
-                                    <th class="th-sm">{{ trans('backend_track.td_name') }}</th>
-                                    <th class="th-sm">{{ trans('backend_track.td_author') }}</th>
-                                    <th class="th-sm">{{ trans('backend_track.td_artist') }}</th>
-                                    <th class="th-sm">{{ trans('backend_track.td_source') }}</th>
-                                    <th class="th-sm">{{ trans('backend_track.td_genre') }}</th>
-                                    <th class="th-sm">{{ trans('backend_track.td_action') }}</th>
-                                </tr>
-                                </tfoot>
+
                             </table>
                         </div>
                     </div>
@@ -108,36 +67,6 @@
 
 @section ('script')
     <script type="text/javascript" src="{{ asset(config('bower.js') . 'jquery.dataTables.min.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('#trackTable').DataTable();
-            $('.add_trending').on('click', function () {
-                var track_id = $(this).attr('attr-id');
-                $.ajax({
-                    'type' : 'get',
-                    'url' : '{{ url('backend/track/trending') }}/' + track_id,
-                    'async' : true,
-                    'success' : function (result) {
-                        var tmpThis = $('a[attr-id=' + track_id + ']');
-                        alert(result.success);
-                        var tag_i = tmpThis.children();
-                        if (result.trend) {
-                            tmpThis.removeClass('btn-info');
-                            tmpThis.addClass('btn-danger');
-                            tag_i.removeClass('zmdi-trending-up');
-                            tag_i.addClass('zmdi-trending-down');
-                            tmpThis.attr('trending', 0);
-                        } else {
-                            tmpThis.removeClass('btn-danger');
-                            tmpThis.addClass('btn-info');
-                            tag_i.removeClass('zmdi-trending-down');
-                            tag_i.addClass('zmdi-trending-up');
-                            tmpThis.attr('trending', 1);
-                        }
-                    }
-                })
-            })
-        })
-    </script>
+    <script type="text/javascript" src="{{ asset('js/backend/backend.js') }}"></script>
 @endsection
 

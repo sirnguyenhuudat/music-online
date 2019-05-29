@@ -96,4 +96,9 @@ class TrackEloquentRepository extends EloquentRepository
     {
         return $this->_model->select('id')->count();
     }
+
+    public function getDataToDataTables()
+    {
+        return $this->_model->select('id', 'artist_id', 'author', 'name', 'source', 'trending')->orderBy('trending', 'desc')->orderBy('id', 'desc')->get();
+    }
 }

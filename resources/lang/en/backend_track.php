@@ -20,7 +20,7 @@ return [
     'td_action' => 'Action',
     'td_genre' => 'Genre',
     'label_cancel' => 'Cancel',
-    'alert_script' => 'Do you want delete \":name\" track?',
+    'alert_script' => 'Do you want delete :name track?',
     'year_active' => 'Year active',
     'year' => 'year',
     'label_album_released' => 'Albums Released',

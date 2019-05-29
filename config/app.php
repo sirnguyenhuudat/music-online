@@ -178,7 +178,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         // Login Fb, Gg with Socialite
         Laravel\Socialite\SocialiteServiceProvider::class,
-
+        // Datatables
+        Yajra\DataTables\DataTablesServiceProvider::class,
     ],
 
     /*
@@ -233,7 +234,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         // Login Fb, Gg with Socialite
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-
+        // Datatables
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];
