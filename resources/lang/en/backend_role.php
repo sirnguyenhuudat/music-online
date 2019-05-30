@@ -17,6 +17,7 @@ return [
     'td_action' => 'Action',
     'label_cancel' => 'Cancel',
     'alert_script' => 'Do you want delete \":slug\" role?',
+    'td_displayname' => 'Display name',
     // create
     'label_form' => '<strong>Role</strong> Form Create',
     // edit

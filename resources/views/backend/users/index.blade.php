@@ -64,7 +64,7 @@
                                         @endif
                                         <td>
                                             @forelse($user->roles as $role)
-                                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm">{{ ucfirst($role->slug) }}</a>
+                                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm">{{ ucfirst($role->name) }}</a>
                                             @empty
                                                 <a href="javascript:void(0)" class="btn btn-secondary btn-sm">{{ trans('backend_user.member') }}</a>
                                             @endforelse

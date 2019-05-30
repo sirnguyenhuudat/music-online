@@ -22,6 +22,26 @@ mix.copy([
     'resources/assets/js/backend/tracks/track.js',
 ], 'public/js/backend/backend.js');
 
+mix.copy([
+    'resources/assets/js/backend/roles/role.js',
+], 'public/js/backend/role.js');
+
+mix.copy([
+    'resources/assets/js/backend/access/access.js',
+], 'public/js/backend/access.js');
+
+mix.copy([
+    'resources/assets/js/backend/access/role.js',
+], 'public/js/backend/access_role.js');
+
+mix.copy([
+    'resources/assets/js/backend/access/permission.js',
+], 'public/js/backend/access_permission.js');
+
+mix.copy([
+    'resources/assets/css/backend/access/access.css',
+], 'public/css/backend/access.css');
+
 mix.js([
     'resources/assets/js/frontend/templates/register.js',
 ], 'public/js/frontend/register.js');
