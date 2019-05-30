@@ -38,18 +38,19 @@
                     @else
                         <a href="javascript:void(0)" class="ms_admin_name">
                             {{ Auth::user()->name }}
-                            @if (Auth::user()->isAdmin())
+                            @role('admin')
                                 <span class="ms_pro_name">A</span>
-                            @else
+                            @endrole
+                            @role('member')
                                 <span class="ms_pro_name">M</span>
-                            @endif
+                            @endrole
                         </a>
                         <ul class="pro_dropdown_menu">
-                            @if (Auth::user()->isAdmin())
+                            @role('admin')
                                 <li>
                                     <a href="{{ route('backend.users.index') }}">{{ trans('home_index.admin_page') }}</a>
                                 </li>
-                            @endif
+                            @endrole
                             <li>
                                 <a href="{{ route('member.profile', [
                                     'id' => Auth::user()->id,

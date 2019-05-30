@@ -18,6 +18,7 @@ return [
     'alert_script' => 'Do you want delete \":name\" member?',
     'roles' => 'Roles',
     'member' => 'Member',
+    'old_role' => 'Old Role',
     // edit
     'label_form_update' => '<strong>User</strong> Form Update Role',
     'form_roles' => 'Roles',

@@ -27,23 +27,26 @@
                                     @csrf
                                     @method('put')
                                     <div class="form-group">
-                                        <label class=" form-control-label">{{ trans('backend_user.td_email') }}</label>
-                                        <input type="email" class="form-control-success form-control" name="name" value="{{ $user->name }}" disabled="disabled">
+                                        <label class="form-control-label">{{ trans('backend_user.td_email') }}</label>
+                                        <input type="email" class="form-control-success form-control" name="name" value="{{ $user->email }}" disabled="disabled">
                                     </div>
+                                    @if(count($user->roles) > 0)
+                                    <div class="form-group">
+                                        <label>{{ trans('backend_user.old_role') }} :</label>
+                                        <p>
+                                            @forelse($user->roles as $role)
+                                                <a href="javascript:void(0)" class="btn btn-outline-info">{{ $role->name }}</a>
+                                            @empty
+                                            @endforelse
+                                        </p>
+                                    </div>
+                                    @endif
                                     <div class="form-group">
                                         <label class="form-control-label">{{ trans('backend_user.form_roles') }}</label>
                                         <small class="form-text text-muted">{{ $errors->first('roles.*') }}</small>
                                         <select name="roles[]" class="user_search_role_multi" multiple="multiple">
                                             @forelse ($roles as $role)
-                                                @if (count($user->roles) > 0)
-                                                    @foreach ($user->roles as $roleOfUser)
-                                                        @if ($roleOfUser->id == $role->id)
-                                                            <option value="{{ $role->id }}" selected="selected" >{{ ucfirst($role->slug) }}</option>
-                                                        @endif
-                                                    @endforeach
-                                                @else
-                                                    <option value="{{ $role->id }}">{{ ucfirst($role->slug) }}</option>
-                                                @endif
+                                                <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
                                             @empty
                                             @endforelse
                                         </select>

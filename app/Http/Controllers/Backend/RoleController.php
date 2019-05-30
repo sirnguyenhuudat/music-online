@@ -49,7 +49,8 @@ class RoleController extends Controller
     public function store(StoreRole $request)
     {
         $dataInsert = [
-            'slug' => Str::slug($request->input('slug')),
+            'name' => Str::slug($request->input('name')),
+            'display_name' => $request->input('display_name'),
             'description' => $request->input('description'),
         ];
         $role = $this->_roleRepository->create($dataInsert);
@@ -57,8 +58,9 @@ class RoleController extends Controller
         return response()->json([
             'status' => 200,
             'message' => trans('backend_role.created', [
-                'slug' => $role->slug,
+                'slug' => $role->name,
             ]),
+            'title' => trans("backend_role.label_success"),
             'role' => $role,
         ]);
     }
@@ -97,7 +99,8 @@ class RoleController extends Controller
         $role = $this->_roleRepository->find($id);
         if ($role) {
             $dataUpdate = [
-                'slug' => Str::slug($request->input('slug')),
+                'name' => Str::slug($request->input('name')),
+                'display_name' => $request->input('display_name'),
                 'description' => $request->input('description'),
             ];
             $role = $this->_roleRepository->update($id, $dataUpdate);
@@ -105,8 +108,9 @@ class RoleController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => trans('backend_role.updated', [
-                    'slug' => $role->slug,
+                    'slug' => $role->name,
                 ]),
+                'title' => trans("backend_role.label_success"),
                 'role' => $role,
             ]);
         }
@@ -121,11 +125,11 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $role = $this->_roleRepository->find($id);
-        if ($role) {
+        if ($role && $id != 1) {
             $this->_roleRepository->delete($id);
 
             return redirect()->route('backend.roles.index')->with('success', trans('backend_role.deleted', [
-                'slug' => $role->slug,
+                'slug' => $role->name,
             ]));
         } else {
             return redirect()->route('backend.roles.index')->with('error', trans('backend_role.error'));

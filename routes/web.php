@@ -19,22 +19,26 @@ Route::group([
     'namespace' => 'Backend',
     'middleware' => 'locale',
 ], function () {
-    Route::get('statical' , 'HomeController@index')->name('statical');
-    Route::resource('genres', 'GenreController')->middleware('auth');
-    Route::get('artist/featured/{id}', 'ArtistController@setFeatured')->middleware('auth');
-    Route::resource('artists', 'ArtistController')->middleware('auth');
-    Route::get('track/trending/{id}', 'TrackController@setTrending')->middleware('auth');
-    Route::get('tracks/get-datatables', 'TrackController@getTracksFromDatatables');
-    Route::resource('tracks', 'TrackController')->middleware('auth');
-    Route::get('album/featured/{id}', 'AlbumController@setFeatured')->middleware('auth');
-    Route::resource('albums', 'AlbumController')->middleware('auth');
+    Route::get('statical' , 'HomeController@index')->name('statical')->middleware('role:admin');
+    Route::resource('genres', 'GenreController')->middleware('role:admin');
+    Route::get('artist/featured/{id}', 'ArtistController@setFeatured')->middleware('role:admin');
+    Route::resource('artists', 'ArtistController')->middleware('role:admin');
+    Route::get('track/trending/{id}', 'TrackController@setTrending')->middleware('role:admin');
+    Route::get('tracks/get-datatables', 'TrackController@getTracksFromDatatables')->middleware('role:admin');
+    Route::resource('tracks', 'TrackController')->middleware('role:admin');
+    Route::get('album/featured/{id}', 'AlbumController@setFeatured')->middleware('role:admin');
+    Route::resource('albums', 'AlbumController')->middleware('role:admin');
     Route::resource('comments', 'CommentController')->only([
         'index',
         'update',
         'destroy',
-    ])->middleware('auth');
-    Route::resource('users', 'UserController')->middleware('auth');
-    Route::resource('roles', 'RoleController')->middleware('auth');
+    ])->middleware('role:admin');
+    Route::resource('users', 'UserController')->middleware('role:admin');
+    Route::resource('roles', 'RoleController')->middleware('role:admin');
+    Route::resource('permissions', 'PermissionController')->middleware('role:admin');
+    Route::get('access', 'AccessController@index')->middleware('role:admin')->name('access.index');
+    Route::post('access/add-permissions', 'AccessController@addPermissionsToRole')->name('access.add.permissions')->middleware('role:admin');
+    Route::post('access/add-roles', 'AccessController@addRolesToPermission')->name('access.add.roles')->middleware('role:admin');
     Route::get('/login', 'LoginController@showLoginForm');
 });
 

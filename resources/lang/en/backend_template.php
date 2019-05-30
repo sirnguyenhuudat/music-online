@@ -22,6 +22,8 @@ return [
     'album_management' => 'Album Management',
     'comment_management' => 'Comment Management',
     'role_management' => 'Role Management',
+    'permission_management' => 'Permission Management',
+    'access_management' => 'Access Management',
     'statistical' => 'Statistical',
     'account' => 'Account',
     'setting' => 'Setting',

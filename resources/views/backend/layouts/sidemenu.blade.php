@@ -17,6 +17,12 @@
                                 <a href="{{ route('backend.roles.index') }}">{{ trans('backend_template.role_management') }}</a>
                             </li>
                             <li>
+                                <a href="{{ route('backend.permissions.index') }}">{{ trans('backend_template.permission_management') }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('backend.access.index') }}">{{ trans('backend_template.access_management') }}</a>
+                            </li>
+                            <li>
                                 <a href="{{ route('backend.users.index') }}">{{ trans('backend_template.user_management') }}</a>
                             </li>
                             <li>

@@ -26,7 +26,8 @@ class UpdateRole extends FormRequest
         $id = $this->route()->parameters['role'];
 
         return [
-            'slug' => 'required|unique:roles,slug,' . $id . '|min:2',
+            'name' => 'required|unique:roles,name,' . $id . '|min:2',
+            'display_name' => 'required|min:2',
             'description' => 'required|min:2',
         ];
     }

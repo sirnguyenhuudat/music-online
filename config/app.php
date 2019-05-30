@@ -1,5 +1,7 @@
 <?php
 
+use Zizaco\Entrust\EntrustServiceProvider;
+
 return [
 
     /*
@@ -180,6 +182,8 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         // Datatables
         Yajra\DataTables\DataTablesServiceProvider::class,
+        // Role and permission manage
+        Zizaco\Entrust\EntrustServiceProvider::class,
     ],
 
     /*
@@ -236,6 +240,8 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         // Datatables
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        // Role and permission manage
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];
