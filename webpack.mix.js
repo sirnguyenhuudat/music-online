@@ -27,6 +27,10 @@ mix.copy([
 ], 'public/js/backend/role.js');
 
 mix.copy([
+    'resources/assets/js/backend/permissions/permission.js',
+], 'public/js/backend/permission.js');
+
+mix.copy([
     'resources/assets/js/backend/access/access.js',
 ], 'public/js/backend/access.js');
 
