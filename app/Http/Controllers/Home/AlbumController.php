@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Home;
 use App\Repositories\Album\AlbumEloquentRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redis;
+//use Illuminate\Support\Facades\Redis;
 
 class AlbumController extends Controller
 {
@@ -31,13 +31,13 @@ class AlbumController extends Controller
     public function detail(Request $request, $id)
     {
         $ip = $request->getClientIp();
-        if (Redis::exists($ip . '_album_' . $id)) {
-            $tmp = json_decode(Redis::get($ip . '_album_' . $id));
-            $data['title_page'] = $tmp->title_page;
-            $data['album'] = $tmp->album;
-
-            return view('home.album_detail', $data);
-        } else {
+//        if (Redis::exists($ip . '_album_' . $id)) {
+//            $tmp = json_decode(Redis::get($ip . '_album_' . $id));
+//            $data['title_page'] = $tmp->title_page;
+//            $data['album'] = $tmp->album;
+//
+//            return view('home.album_detail', $data);
+//        } else {
             $album = $this->_albumRepository->find($id);
             if ($album) {
                 $data['title_page'] = $album->title;
@@ -60,13 +60,13 @@ class AlbumController extends Controller
                     $album->tracks[$key]->artist = $track->artist;
                 }
                 $data['album'] = $album;
-                Redis::set($ip . '_album_' . $id, json_encode($data), 'EX', 300);
+//                Redis::set($ip . '_album_' . $id, json_encode($data), 'EX', 300);
 
                 return view('home.album_detail', $data);
             } else {
                 return redirect()->route('home');
             }
-        }
+//        }
 
     }
 }

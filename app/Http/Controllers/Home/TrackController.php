@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Track\TrackEloquentRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Redis;
+//use Illuminate\Support\Facades\Redis;
 
 class TrackController extends Controller
 {
@@ -75,13 +75,13 @@ class TrackController extends Controller
             }
         } else {
             $ip = $request->getClientIp();
-            if (Redis::exists($ip . '_track_' . $id)) {
-                $tmp = json_decode(Redis::get($ip . '_track_' . $id));
-                $data['title_page'] = $tmp->title_page;
-                $data['track'] = $tmp->track;
-
-                return view('home.track', $data);
-            } else{
+//            if (Redis::exists($ip . '_track_' . $id)) {
+//                $tmp = json_decode(Redis::get($ip . '_track_' . $id));
+//                $data['title_page'] = $tmp->title_page;
+//                $data['track'] = $tmp->track;
+//
+//                return view('home.track', $data);
+//            } else{
                 $track = $this->_trackRepository->find($id);
                 if ($track) {
                     $data['title_page'] = $track->name;
@@ -110,13 +110,13 @@ class TrackController extends Controller
                     $tmpArtist = $track->artist;
                     $track->artist = $tmpArtist;
                     $data['track'] = $track;
-                    Redis::set($ip . '_track_' . $id, json_encode($data), 'EX', 300);
+//                    Redis::set($ip . '_track_' . $id, json_encode($data), 'EX', 300);
 
                     return response()->view('home.track', $data)->cookie('arrTrackId', json_encode($arrTrackId));
                 } else {
                     return redirect()->route('home');
                 }
-            }
+//            }
         }
     }
 

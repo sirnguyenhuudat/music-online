@@ -14,7 +14,7 @@ class CommentsTableSeeder extends Seeder
     {
         factory(Comment::class, 50)->create()->each(function ($comment) {
             if (rand(0, 1)) {
-                $comment->track_id = rand(1, 3000);
+                $comment->track_id = rand(1, 1000);
                 $comment->album_id = null;
             } else {
                 $comment->album_id = rand(1, 200);

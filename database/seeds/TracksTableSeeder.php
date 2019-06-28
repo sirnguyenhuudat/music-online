@@ -12,7 +12,7 @@ class TracksTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Track::class, 3000)->create()->each(function ($track) {
+        factory(Track::class, 1000)->create()->each(function ($track) {
             $genres_id = [];
             for ($i = 0; $i <= rand(0, 2); $i++) {
                 if ($i == 0) {

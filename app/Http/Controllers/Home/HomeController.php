@@ -8,7 +8,7 @@ use App\Repositories\Genre\GenreEloquentRepository;
 use App\Repositories\Track\TrackEloquentRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redis;
+//use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -46,16 +46,16 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $ip = $request->getClientIp();
-        if (Redis::exists($ip . '_home_page_musiconline')) {
-            $tmpData = json_decode(Redis::get($ip . '_home_page_musiconline'));
-            $data['title_page'] = $tmpData->title_page;
-            $data['weekly_top_15'] = $tmpData->weekly_top_15;
-            $data['top_genres'] = $tmpData->top_genres;
-            $data['featured_albums'] = $tmpData->featured_albums;
-            $data['featured_artists'] = $tmpData->featured_artists;
-            $data['release_tracks'] = $tmpData->release_tracks;
-            $data['album_top_month'] = $tmpData->album_top_month;
-        } else {
+//        if (Redis::exists($ip . '_home_page_musiconline')) {
+//            $tmpData = json_decode(Redis::get($ip . '_home_page_musiconline'));
+//            $data['title_page'] = $tmpData->title_page;
+//            $data['weekly_top_15'] = $tmpData->weekly_top_15;
+//            $data['top_genres'] = $tmpData->top_genres;
+//            $data['featured_albums'] = $tmpData->featured_albums;
+//            $data['featured_artists'] = $tmpData->featured_artists;
+//            $data['release_tracks'] = $tmpData->release_tracks;
+//            $data['album_top_month'] = $tmpData->album_top_month;
+//        } else {
             // put data for convenience when get redis cached
             // Weekly
             $weekly_top_15 = $this->_trackRepository->getTracksWeekly();
@@ -83,8 +83,8 @@ class HomeController extends Controller
             $data['featured_artists'] = $this->_artistRepository->getFeaturedArtists();
             $data['release_tracks'] = $release_tracks;
             $data['album_top_month'] = $album_top_month;
-            Redis::set($ip . '_home_page_musiconline', json_encode($data), 'EX', 300);
-        }
+//            Redis::set($ip . '_home_page_musiconline', json_encode($data), 'EX', 300);
+//        }
         if ($request->cookie('arrTrackId') != false) {
             $arrTrackId = json_decode($request->cookie('arrTrackId'), true);
             $data['tracks_recently'] = $this->_trackRepository->getTracksByArrId($arrTrackId);
