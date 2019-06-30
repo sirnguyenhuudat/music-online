@@ -9,7 +9,7 @@ $(document).ready(function () {
                 var trackCurrent = [];
                 $.each(results, function (key, val) {
                     trackCurrent.push({
-                        image: val.picture,
+                        image: baseUrl + '/' + val.picture,
                         title: val.name,
                         artist: val.artist,
                         mp3: val.path,
@@ -34,7 +34,7 @@ $(document).ready(function () {
                 var tracks = [];
                 $.each(results, function (key, val) {
                     tracks.push({
-                        image: val.picture,
+                        image: baseUrl + '/' + val.picture,
                         title: val.name,
                         artist: val.artist,
                         mp3: val.path,
@@ -184,26 +184,26 @@ function audioPlayer (data) {
 function infoAudio (result) {
     var xhtml = '';
     xhtml += '<li class="playInQueue">';
-        xhtml += '<div>';
-            xhtml += '<a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a>';
-            xhtml += '<a href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="0">';
-                xhtml += '<span class="que_img">';
-                    xhtml += '<img src="' + baseUrl + '/' + result.picture + '">';
-                xhtml += '</span>';
-                xhtml += '<div class="que_data">' + result.name;
-                    xhtml += '<span class="jp-artist">by ' + result.artist + '</span>';
-                xhtml += '</div>';
-            xhtml += '</a>';
-            xhtml += '<div class="action">';
-                xhtml += '<span class="que_more">';
-                    xhtml += '<img src="https://localhost/music-online/public/bower_components/package-music-online/home/images/svg/more.svg">';
-                xhtml += '</span>';
-                xhtml += '<span class="que_close">';
-                    xhtml += '<img src="https://localhost/music-online/public/bower_components/package-music-online/home/images/svg/close.svg">';
-                xhtml += '</span>';
-            xhtml += '</div>';
-        xhtml += '</div>';
-        xhtml += '<ul class="more_option"></ul>';
+    xhtml += '<div>';
+    xhtml += '<a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a>';
+    xhtml += '<a href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="0">';
+    xhtml += '<span class="que_img">';
+    xhtml += '<img src="' + baseUrl + '/' + result.picture + '">';
+    xhtml += '</span>';
+    xhtml += '<div class="que_data">' + result.name;
+    xhtml += '<span class="jp-artist">by ' + result.artist + '</span>';
+    xhtml += '</div>';
+    xhtml += '</a>';
+    xhtml += '<div class="action">';
+    xhtml += '<span class="que_more">';
+    xhtml += '<img src="https://localhost/music-online/public/bower_components/package-music-online/home/images/svg/more.svg">';
+    xhtml += '</span>';
+    xhtml += '<span class="que_close">';
+    xhtml += '<img src="https://localhost/music-online/public/bower_components/package-music-online/home/images/svg/close.svg">';
+    xhtml += '</span>';
+    xhtml += '</div>';
+    xhtml += '</div>';
+    xhtml += '<ul class="more_option"></ul>';
     xhtml += '</li>';
 
     return xhtml;

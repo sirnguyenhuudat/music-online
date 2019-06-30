@@ -26,7 +26,7 @@
                                         @if($album->picture != '')
                                             <img src="{{ asset(getThumbName($album->artist->avatar)) }}" alt="{{ $album->artist->name }}" class="img-fluid">
                                         @else
-                                            <img src="{{ asset(getThumbName(config('image.icon') . 'artist.png')) }}" alt="" class="img-fluid">
+                                            <img src="{{ asset(config('image.icon') . 'artist_thumb_50x50.png') }}" alt="" class="img-fluid">
                                         @endif
                                         <div class="ms_song_overlay">
                                         </div>

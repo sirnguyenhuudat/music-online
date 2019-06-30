@@ -18,13 +18,13 @@
     </title>
 
     <!-- Fontfaces CSS-->
-    <link href="{{ asset('bower_components/package-music-online/css/mdi_font/css/material-design-iconic-font.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset(config('bower.css') . 'mdi_font/css/material-design-iconic-font.min.css') }}" rel="stylesheet" media="all">
 
     <!-- Bootstrap CSS-->
-    <link href="{{ asset('bower_components/package-music-online/css/bootstrap.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset(config('bower.css') . 'bootstrap.min.css') }}" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="{{ asset('bower_components/package-music-online/css/theme.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset(config('bower.css') . 'theme.css') }}" rel="stylesheet" media="all">
     @yield('style')
     <script>
         var baseUrl = '{{ url('/') }}';
@@ -57,13 +57,13 @@
 </div>
 
 <!-- Jquery JS-->
-<script src="{{ asset('bower_components/package-music-online/js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset(config('bower.js') . 'jquery-3.2.1.min.js') }}"></script>
 <!-- Bootstrap JS-->
-<script src="{{ asset('bower_components/package-music-online/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset(config('bower.js') . 'bootstrap.min.js') }}"></script>
 <!-- Vendor JS       -->
-<script src="{{ asset('bower_components/package-music-online/js/animsition.min.js') }}"></script>
+<script src="{{ asset(config('bower.js') . 'animsition.min.js') }}"></script>
 <!-- Main JS-->
-<script src="{{ asset('bower_components/package-music-online/js/main.js') }}"></script>
+<script src="{{ asset(config('bower.js') . 'main.js') }}"></script>
 @yield('script')
 </body>
 

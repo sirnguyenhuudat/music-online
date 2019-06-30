@@ -46,21 +46,21 @@ class QueueController extends Controller
                     'name' => $track->name,
                     'artist' => $track->artist->name,
                     'path' => convertURL($track->path),
-                    'picture' => $track->artist->avatar == '' ? getThumbName(config('image.icon') . 'artist.png') : getThumbName($track->artist->avatar),
+                    'picture' => $track->artist->avatar == '' ? config('image.icon') . 'artist_thumb_50x50.png' : getThumbName($track->artist->avatar),
                 ];
             } else {
                 $trackInQueue[] = [
                     'name' => $track->name,
                     'artist' => $track->artist->name,
                     'path' => convertURL($track->path),
-                    'picture' => $track->artist->avatar == '' ? getThumbName(config('image.icon') . 'artist.png') : getThumbName($track->artist->avatar),
+                    'picture' => $track->artist->avatar == '' ? config('image.icon') . 'artist_thumb_50x50.png' : getThumbName($track->artist->avatar),
                 ];
             }
             $data = [
                 'name' => $track->name,
                 'artist' => $track->artist->name,
                 'path' => convertURL($track->path),
-                'picture' => $track->artist->avatar == '' ? getThumbName(config('image.icon') . 'artist.png') : getThumbName($track->artist->avatar),
+                'picture' => $track->artist->avatar == '' ? config('image.icon') . 'artist_thumb_50x50.png' : getThumbName($track->artist->avatar),
                 'length' => count($trackInQueue) + 1,
             ];
 

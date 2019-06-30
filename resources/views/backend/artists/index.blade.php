@@ -59,7 +59,7 @@
                                             </td>
                                         @else 
                                             <td>
-                                                <img src="{{ asset(getThumbName(config('image.icon') . 'artist.png')) }}" alt="picture" class="img-thumbnail">
+                                                <img src="{{ asset(config('image.icon') . 'artist_thumb_50x50.png') }}" alt="picture" class="img-thumbnail">
                                             </td>
                                         @endif
                                         <td>
@@ -109,7 +109,7 @@
                                 @if ($artist->avatar)
                                     <img src="{{ asset(getThumbName($artist->avatar, 250, 250)) }}" alt="picture" class="img-thumbnail">
                                 @else
-                                    <img src="{{ asset(getThumbName(config('image.icon') . 'artist.png', 250, 250)) }}" alt="picture" class="img-thumbnail">
+                                    <img src="{{ asset(config('image.icon') . 'artist_thumb_250x250.png') }}" alt="picture" class="img-thumbnail">
                                 @endif
                             </div>
                             <div class="col-lg-7">

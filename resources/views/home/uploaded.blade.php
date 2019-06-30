@@ -36,7 +36,7 @@
                                                 @if($track->artist->avatar != '')
                                                     <img src="{{ asset(getThumbName($track->artist->avatar)) }}" alt="{{ $track->artist->name }}" class="img-fluid">
                                                 @else
-                                                    <img src="{{ asset(getThumbName(config('image.icon') . 'artist.png')) }}" alt="" class="img-fluid">
+                                                    <img src="{{ asset(config('image.icon') . 'artist_thumb_50x50.png') }}" alt="" class="img-fluid">
                                                 @endif
                                                 <div class="ms_song_overlay"></div>
                                                 <div class="ms_play_icon">

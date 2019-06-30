@@ -2,7 +2,7 @@
 if (!function_exists('getThumbName')) {
     function getThumbName($fileName, $width = 50, $height = 50) {
         if ($fileName) {
-            return preg_replace('/(.*)\.(.*)/i', '$1_thumb_' . $width . 'x' . $height . '.$2', $fileName);
+            return 'public/' . preg_replace('/(.*)\.(.*)/i', '$1_thumb_' . $width . 'x' . $height . '.$2', $fileName);
         }
 
         return '';

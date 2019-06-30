@@ -29,13 +29,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Request $request)
     {
         $ip = $request->getClientIp();
-        if (Redis::exists($ip . '_tracks_trending')) {
-            $tracksTrending = json_decode(Redis::get($ip . '_tracks_trending'));
-        } else {
+        $tracksTrending = [];
+//        if (Redis::exists($ip . '_tracks_trending')) {
+//            $tracksTrending = json_decode(Redis::get($ip . '_tracks_trending'));
+//        } else {
             $this->setTrackRepository();
-            $tracksTrending = $this->_trackRepository->getTracksTrending();
-            Redis::set($ip . '_tracks_trending', json_encode($tracksTrending), 'EX', 3600);
-        }
+            if (\Schema::hasTable('tracks')) {
+                $tracksTrending = $this->_trackRepository->getTracksTrending();
+//                Redis::set($ip . '_tracks_trending', json_encode($tracksTrending), 'EX', 3600);
+            } else {
+                $tracksTrending = [];
+            }
+//        }
         View::share('tracksTrending', $tracksTrending);
     }
 

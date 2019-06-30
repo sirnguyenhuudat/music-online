@@ -130,6 +130,7 @@
 @endsection
 
 @section ('script')
+    <script type="text/javascript" src="{{ asset(config('bower.js') . 'select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset(config('bower.js') . 'jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset(config('bower.js') . 'backend_script.js') }}"></script>
     <script>

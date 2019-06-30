@@ -59,7 +59,7 @@
                                             </td>
                                         @else 
                                             <td>
-                                                <img src="{{ asset(getThumbName(config('image.icon') . 'genre.jpg')) }}" alt="picture" class="img-thumbnail">
+                                                <img src="{{ asset(config('image.icon') . 'genre_thumb_50x50.jpg') }}" alt="picture" class="img-thumbnail">
                                             </td>
                                         @endif
                                         <td>
@@ -108,7 +108,7 @@
                                 @if ($genre->picture)
                                     <img src="{{ asset(getThumbName($genre->picture, 250, 250)) }}" alt="picture" class="img-thumbnail">
                                 @else
-                                    <img src="{{ asset(getThumbName(config('image.icon') . 'genre.jpg', 250, 250)) }}" alt="picture" class="img-thumbnail">
+                                    <img src="{{ asset(config('image.icon') . 'genre_thumb_250x250.jpg') }}" alt="picture" class="img-thumbnail">
                                 @endif
                             </div>
                             <div class="col-lg-7">
@@ -131,6 +131,7 @@
 @endsection
 
 @section ('script')
+    <script type="text/javascript" src="{{ asset(config('bower.js') . 'select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset(config('bower.js') . 'jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset(config('bower.js') . 'backend_script.js') }}"></script>
 @endsection
